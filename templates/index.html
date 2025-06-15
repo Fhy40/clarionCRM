@@ -5,20 +5,21 @@
 {% endblock %}
 
 {% block body %}
-<h1 style="text-align: center">ClarionCRM</h1>
-<h2 id="dateintro" style="text-align: center">It's the 14th of June 2025</h2>
+<h1 class="page-title">ClarionCRM</h1>
+<h2 class="page-subtitle" id="dateintro">It's the 14th of June 2025</h2>
+<h5 class="page-subtitle" id="numPeople">There are {{ people_count['COUNT(ID)'] }} people in the Database</h5>
 <div class="top-right-button">
     <a href="/addperson"><button class="form-control">Add Person</button></a>
 </div>
 <br>
-<div class="content">    
-    <div class="agent-container">
+<div class="horizontal-scroll">
+    <div class="agent-container-horizontal">
         {% for row in rows %}
-        <div class="agent-card{% if row['Category']|lower == 'best friend' %}-mvp{% elif row['Category']|lower == 'family' %}-fam{% endif %}">
-            
-            
+        <article class="agent-card-base agent-card{% if row['Category']|lower == 'best friend' %}-mvp{% elif row['Category']|lower == 'family' %}-fam{% endif %}" data-priority="{{ row['Priority'] }}">
             <h6>{{ row['Name'] }}</h6>
-            <img src="static\assets\pic\facebookprofile.jpeg" alt="{{ row['Name'] }}">
+            <figure>
+                <img src="/static/assets/pic/facebookprofile.jpeg" alt="{{ row['Name'] or 'Profile Photo' }}">
+            </figure>
             <h6>Relationship</h6>
             <div class="bar">
                 <div class="fill" style="width: 80%;"></div>
@@ -33,37 +34,21 @@
                     ⭐
                 {% endfor %}
             </h6>
+            <h6 id="daysSinceContacted">0</h6>
             <a href="/peopleview?id={{ row['ID'] }}"><button class="form-control">Open</button></a>
             <form action="/delete_person" method="post" class="delete-button" onsubmit="return confirm('Delete this person?');">
-            <input type="hidden" name="id" value="{{ row['ID'] }}">     
-            <button type="submit"title="Delete">✖️</button>   
+                <input type="hidden" name="id" value="{{ row['ID'] }}">     
+                <button type="submit" title="Delete" aria-label="Delete {{ row['Name'] }}">✖️</button>   
             </form>
-        </div>
+        </article>
         {% endfor %}
-        
     </div>
-    <br>
-    
-    
-
-    <table class="table_rawdata" border="1">
-        <thead>
-            <tr>
-                {% for column in rows[0].keys() %}
-                <th>{{ column }}</th>
-                {% endfor %}
-            </tr>
-        </thead>        
-        <tbody>
-            {% for row in rows %}
-            <tr>
-                {% for value in row %}
-                <td>{{ value }}</td>
-                {% endfor %}
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
 </div>
-
+<br>
+<div class="filter-div">
+<button class="filter-buttons" onclick="filterMVP(this)"> MVP </button>
+<button class="filter-buttons" onclick="filterFamily(this)"> Family </button>
+<button class="filter-buttons" onclick="unfilterAll()"> Clear </button>
+</div>
+<br>
 {% endblock %}

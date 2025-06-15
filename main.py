@@ -57,6 +57,7 @@ def add_person():
         priority = int(request.form.get('priority', 1))
         communication_routes = request.form.get('communication', '')
         comments = request.form.get('comments', '')
+        phone_number = request.form.get('phone_number', '')
         
         # Static/default values
         profile_picture = 'assets/pic/facebookprofile.jpeg'  # adjust path if needed
@@ -67,13 +68,13 @@ def add_person():
         db = get_db()
         db.execute('''
             INSERT INTO main (
-                Name, Category, Type, Priority, Communication_Routes, 
-                Profile_Picture, Last_Contacted, Last_Meeting, Comments
+                Name, Category, Type, Priority, Communication_Routes,
+                Phone_Number, Profile_Picture, Last_Contacted, Last_Meeting, Comments
             )
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         ''', (
             name, category, type_, priority, communication_routes,
-            profile_picture, last_contacted, last_meeting, comments
+            phone_number, profile_picture, last_contacted, last_meeting, comments
         ))
         db.commit()
 
@@ -91,10 +92,10 @@ def close_db(exception):
 def home():
     db = get_db()
     rows = db.execute('SELECT * FROM main').fetchall()
+    people_count = db.execute('SELECT COUNT(ID) FROM main;').fetchall()
     db = get_db()
-    rows_raw = db.execute('SELECT * FROM main').fetchall()
-    
-    return render_template('index.html', rows=rows)
+    print(dict(people_count[0]))    
+    return render_template('index.html', rows=rows,people_count = dict(people_count[0]))
 
 @app.route('/peopleview')
 def peopleview():

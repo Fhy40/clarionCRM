@@ -9,15 +9,37 @@ div {
     font-family: 'DIN', sans-serif;
 }
 
-/* Shared card layout */
-.agent-card,
-.agent-card-mvp,
-.agent-card-fam {
+.page-title,
+.page-subtitle {
+    text-align: center;
+}
+
+.filter-div{
+    padding-left: 10px;
+}
+
+.filter-buttons {
+    font-family: 'DIN', sans-serif;
+    width: 5%;
+    padding: 10px;
+    position: relative;
+}
+
+.filter-buttons.active {
+    border: 4px solid;
+    border-image: linear-gradient(90deg, #1dd1a1, #3b3b98) 1;
+    border-color: #21428B;
+}
+
+.agent-card-base {
     text-align: center;
     border: 1px solid #21428B;
     padding: 10px;
     border-radius: 16px;
     font-size: 24px;
+    min-width: 280px;
+    max-width: 300px;
+    flex-shrink: 0;
 }
 
 .agent-card {
@@ -35,33 +57,24 @@ div {
     background: linear-gradient(90deg, #efff60 0%, #ffa600 100%);
 }
 
-/* Image styles */
-.agent-card img,
-.agent-card-mvp img,
-.agent-card-fam img {
+.agent-card-base img {
     width: 150px;
     height: 150px;
 }
 
-/* Container for cards */
-.agent-container {
+.agent-container-horizontal {
     display: flex;
-    justify-content: center;
-    gap: 30px;
-    flex-wrap: wrap;
-    margin-top: 20px;
+    flex-direction: row;
+    gap: 20px;
+    padding: 20px;
 }
 
-/* Delete button inside card */
-.agent-card form.delete-button,
-.agent-card-mvp form.delete-button,
-.agent-card-fam form.delete-button {
-    position: relative;
+.horizontal-scroll {
+    overflow-x: auto;
+    white-space: nowrap;
 }
 
-.agent-card form.delete-button button,
-.agent-card-mvp form.delete-button button,
-.agent-card-fam form.delete-button button {
+.delete-button button {
     background: transparent;
     border: none;
     font-size: 16px;
@@ -71,7 +84,6 @@ div {
     line-height: 1;
 }
 
-/* Bar and fill styles */
 .bar {
     background-color: #1f2c4d;
     border: 1px solid #0d1a2d;
@@ -87,7 +99,6 @@ div {
     transition: width 0.3s ease-in-out;
 }
 
-/* Page content container */
 .content {
     text-align: center;
     border: 1px solid #21428B;
@@ -98,15 +109,29 @@ div {
     height: auto;
 }
 
-/* Table styling (centered) */
-.table_rawdata .table_rawdata * {
-    display: flex;
-    justify-content: center;
-}
-
-/* Floating add button (top right corner) */
 .top-right-button {
     position: absolute;
     top: 20px;
     right: 20px;
 }
+
+.form-container {
+    display: flex;
+    justify-content: center;    /* Horizontal centering */
+    align-items: center;        /* Vertical centering */
+    min-height: 80vh;           /* Enough height for vertical centering */
+    padding: 20px;
+}
+
+@media (max-width: 768px) {
+    .agent-card-base {
+        font-size: 18px;
+        width: 80vw;
+    }
+
+    .top-right-button {
+        position: static;
+        margin-bottom: 20px;
+    }
+}
+

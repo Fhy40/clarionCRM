@@ -5,49 +5,53 @@
 {% endblock %}
 
 {% block body %}
-<h1 style="text-align: center">Add a New Person</h1>
-<div class="agent-card" style="max-width: 400px; margin: 0 auto;">
+<h1 class="page-title">Add a New Person</h1>
 
-    <form action="/add_person" method="post">
-        <label for="name">Name:</label><br>
-        <input type="text" name="name" required><br><br>
+<div class="form-container">
+    <div class="agent-card-base agent-card" style="max-width: 400px; width: 100%;">
+        <form action="/add_person" method="post">
+            <label for="name">Name:</label><br>
+            <input type="text" name="name" required><br><br>
 
-        <label for="category">Category:</label><br>
-        <select name="category" required>
-            <option value="">-- Select Category --</option>
-            <option value="Friend">Friend</option>
-            <option value="Best Friend">Best Friend</option>
-            <option value="Family">Family</option>
-            <option value="Colleague">Colleague</option>
-            <option value="Other">Other</option>
-        </select><br><br>
+            <label for="category">Category:</label><br>
+            <select name="category" required>
+                <option value="">-- Select Category --</option>
+                <option value="Friend">Friend</option>
+                <option value="Best Friend">Best Friend</option>
+                <option value="Family">Family</option>
+                <option value="Colleague">Colleague</option>
+                <option value="Other">Other</option>
+            </select><br><br>
 
-        <label for="type">Type:</label><br>
-        <select name="type" id="type" required>
-            <option value="">-- Select Type --</option>
-            <option value="Social">Social</option>
-            <option value="Work">Work</option>
-            <option value="Social/Work">Social/Work</option>
-        </select><br><br>
-        
-        <label for="industry">Industry Type:</label><br>
-        <input type="text" name="industry"><br><br>
+            <label for="type">Type:</label><br>
+            <select name="type" id="type" required>
+                <option value="">-- Select Type --</option>
+                <option value="Social">Social</option>
+                <option value="Work">Work</option>
+                <option value="Social/Work">Social/Work</option>
+            </select><br><br>
+            
+            <label for="industry">Industry:</label><br>
+            <input type="text" name="industry"><br><br>
 
-        <label for="priority">Priority (1–5):</label><br>
-        <input type="number" name="priority" min="1" max="5" required><br><br>
+            <label for="phone_number">Phone Number:</label><br>
+            <input type="text" name="phone_number"><br><br>
 
-        <label for="communication">Communication Routes:</label><br>
-        <input type="text" name="communication"><br><br>
+            <label for="priority">Priority (1–5):</label><br>
+            <input type="number" name="priority" min="1" max="5" required><br><br>
 
-        <label for="comments">Comments:</label><br>
-        <textarea name="comments" rows="3" cols="30"></textarea><br><br>
+            <label for="communication">Communication Routes:</label><br>
+            <input type="text" name="communication"><br><br>
 
-        <button type="submit">Add Person</button>
-    </form>
+            <label for="comments">Comments:</label><br>
+            <textarea name="comments" rows="3" cols="30"></textarea><br><br>
 
+            <button type="submit">Add Person</button>
+        </form>
+    </div>
 </div>
-<br>
-<div style="text-align: center;">
+
+<div class="back-button">
     <a href="/"><button class="form-control">Back</button></a>
 </div>
 {% endblock %}

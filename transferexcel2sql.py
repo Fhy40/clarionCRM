@@ -19,6 +19,7 @@ cursor.execute('''
     CREATE TABLE main (
         ID INTEGER PRIMARY KEY AUTOINCREMENT,
         Name TEXT,
+        Phone_Number TEXT,       
         Category TEXT,
         Type TEXT,
         Priority INTEGER,

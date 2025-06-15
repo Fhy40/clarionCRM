@@ -2,36 +2,48 @@
 
 {% block head %}
 <title>ClarionCRM</title>
-
 {% endblock %}
 
 {% block body %}
-        <div class="agent-card">
-            <h6 id="crmAgent1name">Name: {{ person['Name'] }}</h6>
-            <img src="{{ url_for('static', filename='assets/pic/facebookprofile.jpeg') }}" alt="Apocalypse_Tank">
-            <h6>Relationship</h6>
-            <div class="bar"><div class="fill" style="width: 80%;"></div></div>
-            <h6>Last Contacted: {{ person['Last_Contacted'][:10] }}</h6>
-            <h6>Communication: {{ person['Communication_Routes'] }}</h6>
-            <h6>Type: {{ person['Type'] }}</h6>
-            <h6>Category: {{ person['Category'] }}</h6>
-            <h6>Industry: {{ person['Industry'] }}</h6>
-            <h6>Priority: {% for _ in range(person['Priority']) %}
-                    ⭐
-                {% endfor %}</h6>
-            <h6>Comments: {{ person['Comments'] }}</h6>
-            
-            <form action="/update_person" method="post">
+
+<h1 class="page-title">Contact Details</h1>
+
+<div class="form-container">
+    <div class="agent-card-base agent-card" style="max-width: 500px; width: 100%;">
+        <h6>Name: {{ person['Name'] }}</h6>
+        <figure>
+            <img src="{{ url_for('static', filename='assets/pic/facebookprofile.jpeg') }}" alt="{{ person['Name'] }}">
+        </figure>
+
+        <h6>Relationship</h6>
+        <div class="bar"><div class="fill" style="width: 80%;"></div></div>
+
+        <h6>Last Contacted: {{ person['Last_Contacted'][:10] }}</h6>
+        <h6>Phone Number: {{ person['Phone_Number'] | string  }}</h6>
+        <h6>Communication: {{ person['Communication_Routes'] }}</h6>
+        <h6>Type: {{ person['Type'] }}</h6>
+        <h6>Category: {{ person['Category'] }}</h6>
+        <h6>Industry: {{ person['Industry'] }}</h6>
+        <h6>Priority: 
+            {% for _ in range(person['Priority']) %}
+                ⭐
+            {% endfor %}
+        </h6>
+        <h6>Comments: {{ person['Comments'] }}</h6>
+
+        <form action="/update_person" method="post">
             <input type="hidden" name="id" value="{{ person['ID'] }}">
             <input type="hidden" name="last_contacted" id="last_contacted_input" value="1998-01-02 00:00:00">
 
             <label for="comments">Update Comments:</label><br>
             <textarea name="comments" id="comments" rows="3" cols="40">{{ person['Comments'] }}</textarea><br><br>
             <button type="submit">Contacted</button>
-            </form>
-        </div>
-        
-        <br>
-        <a href="/"><button class="form-control">Back</button></a>
+        </form>
+    </div>
+</div>
+
+<div class="back-button">
+    <a href="/"><button class="form-control">Back</button></a>
+</div>
 
 {% endblock %}

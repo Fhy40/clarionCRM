@@ -32,13 +32,61 @@ function formatDate(date) {
         return `It's the ${day}${suffix(day)} of ${months[date.getMonth()]} ${date.getFullYear()}`;
     }
 
+function filterMVP(button) {
+    const allCards = document.querySelectorAll('.agent-card-base');
+    setActiveButton(button);
+    allCards.forEach(card => {
+        // Check if the card has the 'agent-card-mvp' class (which signifies Best Friend)
+        if (card.classList.contains('agent-card-mvp')) {
+            card.style.display = 'block';
+        } else {
+            card.style.display = 'none';
+        }
+    });
+}
+
+function filterFamily(button) {
+    const allCards = document.querySelectorAll('.agent-card-base');
+    setActiveButton(button);
+    allCards.forEach(card => {
+        // Check if the card has the 'agent-card-mvp' class (which signifies Best Friend)
+        if (card.classList.contains('agent-card-fam')) {
+            card.style.display = 'block';
+        } else {
+            card.style.display = 'none';
+        }
+    });
+}
+
+
+
+function setActiveButton(activeBtn) {
+    const buttons = document.querySelectorAll('.filter-buttons');
+    buttons.forEach(btn => btn.classList.remove('active'));
+    activeBtn.classList.add('active');
+}
+
+
+function unfilterAll() {
+    // Show all cards
+    const allCards = document.querySelectorAll('.agent-card-base');
+    allCards.forEach(card => {
+        card.style.display = 'block';
+    });
+
+    // Deactivate all toggle buttons
+    document.querySelectorAll('.filter-buttons').forEach(btn => btn.classList.remove('active'));
+}
+
 // Set formatted date on page load
     document.addEventListener('DOMContentLoaded', () => {
         const dateElement = document.getElementById('dateintro');
+        const numPeople = document.getElementById('numPeople');
         if (dateElement) {
             dateElement.textContent = formatDate(new Date());
         }
         const form = document.querySelector('form[action="/update_person"]');
+
         form.addEventListener("submit", function() {
         document.getElementById("last_contacted_input").value =  getCurrentTimestamp();
         });
