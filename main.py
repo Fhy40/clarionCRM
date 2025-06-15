@@ -35,6 +35,19 @@ def update_person():
     # Redirect back to the homepage or wherever appropriate
     return redirect(url_for('home'))
 
+@app.route('/delete_person', methods=['POST'])
+def delete_person():
+    person_id = request.form.get('id')
+
+    if not person_id:
+        return "Missing ID", 400
+
+    db = get_db()
+    db.execute('DELETE FROM main WHERE ID = ?', (person_id,))
+    db.commit()
+
+    return redirect(url_for('home'))
+
 @app.route('/add_person', methods=['GET', 'POST'])
 def add_person():
     if request.method == 'POST':

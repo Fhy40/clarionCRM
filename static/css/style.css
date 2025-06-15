@@ -1,4 +1,3 @@
-
 @font-face {
     font-family: 'DIN';
     src: url('../fonts/DINCond.ttf') format('truetype');
@@ -7,68 +6,73 @@
 }
 
 div {
-    font-family: 'DIN', sans-serif;    
+    font-family: 'DIN', sans-serif;
 }
-.agent-container {
-        display: flex;
-        justify-content: center;
-        gap: 30px; /* space between each agent card */
-        flex-wrap: wrap; /* allows wrapping on smaller screens */
-        margin-top: 20px;
-    }
 
-.agent-card {
+/* Shared card layout */
+.agent-card,
+.agent-card-mvp,
+.agent-card-fam {
     text-align: center;
-    color: #21428B;
     border: 1px solid #21428B;
     padding: 10px;
-    border-radius: 8px;
+    border-radius: 16px;
+    font-size: 24px;
+}
+
+.agent-card {
+    color: #21428B;
     background-color: #A9C2F1;
 }
 
 .agent-card-mvp {
-    text-align: center;
     color: #d0fff7;
-    border: 1px solid #21428B;
-    padding: 10px;
-    border-radius: 8px;
-    background: linear-gradient(90deg, #1dd1a1 0%, #3b3b98 100%);    
+    background: linear-gradient(90deg, #1dd1a1 0%, #3b3b98 100%);
 }
 
 .agent-card-fam {
-    text-align: center;
     color: #21428B;
-    border: 1px solid #21428B;
-    padding: 10px;
-    border-radius: 8px;
-    background: linear-gradient(90deg, #efff60 0%, #ffa600 100%);    
+    background: linear-gradient(90deg, #efff60 0%, #ffa600 100%);
 }
 
-
-.agent-card, .agent-card * {
-    font-size: 24px;
+/* Image styles */
+.agent-card img,
+.agent-card-mvp img,
+.agent-card-fam img {
+    width: 150px;
+    height: 150px;
 }
 
-.agent-card-mvp, .agent-card-mvp * {
-    font-size: 24px;
+/* Container for cards */
+.agent-container {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+    margin-top: 20px;
 }
 
-.agent-card-fam, .agent-card-fam * {
-    font-size: 24px;
+/* Delete button inside card */
+.agent-card form.delete-button,
+.agent-card-mvp form.delete-button,
+.agent-card-fam form.delete-button {
+    position: relative;
 }
 
-.content {
-    text-align: center;
-    border: 1px solid #21428B;
-    padding: 10px;
-    border-radius: 8px;
-    background-color: #ffffff;
-    width: auto;
-    height: auto;
+.agent-card form.delete-button button,
+.agent-card-mvp form.delete-button button,
+.agent-card-fam form.delete-button button {
+    background: transparent;
+    border: none;
+    font-size: 16px;
+    font-weight: bold;
+    color: red;
+    cursor: pointer;
+    line-height: 1;
 }
 
+/* Bar and fill styles */
 .bar {
-    flex: 2;
     background-color: #1f2c4d;
     border: 1px solid #0d1a2d;
     height: 16px;
@@ -83,27 +87,24 @@ div {
     transition: width 0.3s ease-in-out;
 }
 
-
-.agent-card img {
-    width: 150px;
-    height: 150px;
+/* Page content container */
+.content {
+    text-align: center;
+    border: 1px solid #21428B;
+    padding: 10px;
+    border-radius: 8px;
+    background-color: #ffffff;
+    width: auto;
+    height: auto;
 }
 
-.agent-card-mvp img {
-    width: 150px;
-    height: 150px;
-}
-
-.agent-card-fam img {
-    width: 150px;
-    height: 150px;
-}
-
+/* Table styling (centered) */
 .table_rawdata .table_rawdata * {
     display: flex;
     justify-content: center;
 }
 
+/* Floating add button (top right corner) */
 .top-right-button {
     position: absolute;
     top: 20px;
