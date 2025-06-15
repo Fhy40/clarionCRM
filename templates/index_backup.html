@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>FlaskCRM</title>
+{% endblock %}
+
+{% block body %}
+<div class="content">
+    <h1 style="text-align: center">FlaskCRM</h1>
+    <h4 style="text-align: center" id = "bitcoin-ticker">.</h4>
+       <h4 style="text-align: center" id = "bitcoin-ticker2">..</h4> 
+       <h4 style="text-align: center" id = "bitcoin-ticker3">...</h4>
+    
+    <div class="col-lg-3 center-block">
+        <div class="input-group">
+            <h6 id="crmAgent1name" style="text-align: center">Name: Apocalypse Tank </h6> 
+            <input id="crmAgent1Nameupdate" class="form-control" style="width:200px" type="text" id="demo2"></input>
+            <button onclick="updateName()" class="form-control">Update</button>
+            <br>
+            <picture>            
+            <img src="static\assets\pic\RA3_Apocalypse_Tank.webp" alt="Apocalypse_Tank" style="width:150px">
+            </picture>
+        </div>
+    </div>
+       
+    
+    <br>
+    <div class="col-lg-3 center-block">
+    
+        <div class="input-group">
+            <h6 id="fieldinvst" style="text-align: center">Current WarChest = $2500.00</h6> 
+            <input id="fieldinvstForm" class="form-control" style="width:300px" type="text" id="demo3"></input>
+            <button class="form-control">Update</button>
+        </div>
+        <br>
+        <div class="input-group">
+            <input id="buyForm" class="form-control" style="width:300px" type="text"></input>
+            <button onclick="buy()" id="buy_button" class="form-control" disabled>Buy</button>
+            <button onclick="sell()" id="sell_button" class="form-control" disabled>Sell</button>
+        </div>
+    
+    </div>
+    <br>
+    <h6 style="text-align: center" id="total_holdings">Total Value of Holidings = $0.00</h6>
+    <h6 style="text-align: center" id="coin_amount">Total Number of Coins = 0</h6>
+    <h4 style="text-align: center" id = "bitcoin-ticker4">....</h4> 
+    <br>
+
+    <button onclick="startCrypto()" class="form-control">Start</button>
+    <button onclick="stopCrypto()" class="form-control">Stop</button>
+
+    <canvas id="myChart" width="900px" height="500px"></canvas>
+    
+    <table id="history_table" class="table">
+        <tr>
+          <th>ID</th>
+          <th>Price Purchase</th>
+          <th>Amount</th>
+          <th>Value</th>
+        </tr>
+      </table>
+      
+    
+    
+</div>
+{% endblock %}

@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>ClarionCRM</title>
+{% endblock %}
+
+{% block body %}
+<h1 style="text-align: center">FlaskCRM</h1>
+<h2 id="dateintro" style="text-align: center">It's the 14th of June 2025</h2>
+<div class="top-right-button">
+    <a href="/addperson"><button class="form-control">Add Person</button></a>
+</div>
+<br>
+<div class="content">    
+    <div class="agent-container">
+        {% for row in rows %}
+        <div class="agent-card{% if row['Category']|lower == 'best friend' %}-mvp{% elif row['Category']|lower == 'family' %}-fam{% endif %}">
+            <h6>{{ row['Name'] }}</h6>
+            <img src="static\assets\pic\facebookprofile.jpeg" alt="{{ row['Name'] }}">
+            <h6>Relationship</h6>
+            <div class="bar">
+                <div class="fill" style="width: 80%;"></div>
+            </div>
+            <h6>Last Contacted: {{ row['Last_Contacted'][:10] }}</h6>
+            <h6>Communication: {{ row['Communication_Routes'] }}</h6>
+            <h6>Type: {{ row['Type'] }}</h6>
+            <h6>Category: {{ row['Category'] }}</h6>
+            <h6>Priority: 
+                {% for _ in range(row['Priority']) %}
+                    ⭐
+                {% endfor %}
+            </h6>
+            <a href="/peopleview?id={{ row['ID'] }}"><button class="form-control">Open</button></a>
+            <br>
+        </div>
+        {% endfor %}
+        
+    </div>
+    <br>
+    
+    
+
+    <table class="table_rawdata" border="1">
+        <thead>
+            <tr>
+                {% for column in rows[0].keys() %}
+                <th>{{ column }}</th>
+                {% endfor %}
+            </tr>
+        </thead>        
+        <tbody>
+            {% for row in rows %}
+            <tr>
+                {% for value in row %}
+                <td>{{ value }}</td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}
