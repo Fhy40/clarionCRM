@@ -58,6 +58,7 @@ def add_person():
         communication_routes = request.form.get('communication', '')
         comments = request.form.get('comments', '')
         phone_number = request.form.get('phone_number', '')
+        industry = request.form.get('industry','')
         
         # Static/default values
         profile_picture = 'assets/pic/facebookprofile.jpeg'  # adjust path if needed
@@ -69,12 +70,12 @@ def add_person():
         db.execute('''
             INSERT INTO main (
                 Name, Category, Type, Priority, Communication_Routes,
-                Phone_Number, Profile_Picture, Last_Contacted, Last_Meeting, Comments
+                Phone_Number, Profile_Picture, Last_Contacted, Last_Meeting, Comments,Industry
             )
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         ''', (
             name, category, type_, priority, communication_routes,
-            phone_number, profile_picture, last_contacted, last_meeting, comments
+            phone_number, profile_picture, last_contacted, last_meeting, comments,industry
         ))
         db.commit()
 

@@ -3,7 +3,7 @@ import sqlite3
 from flask import render_template
 import pandas as pd
 
-excel_file = 'database.xlsx'
+excel_file = 'database-sample.xlsx'
 df = pd.read_excel(excel_file, sheet_name='Main')
 
 # Remove existing ID column if present (we'll auto-increment it)
