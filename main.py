@@ -1,8 +1,8 @@
 import flask
 import sqlite3
-from flask import Flask, render_template, g, request, redirect,  url_for
+from flask import Flask, render_template, g, request, redirect,  url_for, jsonify
 from datetime import datetime
-from flask import jsonify
+
 
 app = flask.Flask(__name__,static_url_path='/static')
 DATABASE = 'main_database.db'

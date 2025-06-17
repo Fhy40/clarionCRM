@@ -60,4 +60,4 @@ def db_initialization(databaseexcel):
     conn.commit()
     conn.close()
 
-db_initialization('database-sample.xlsx')
+db_initialization('database.xlsx')
