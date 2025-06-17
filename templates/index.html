@@ -34,7 +34,7 @@
                     ⭐
                 {% endfor %}
             </h6>
-            <h6 id="daysSinceContacted">0</h6>
+            <h6 class="days-since" style="display: none;">{{ row['days_since_contacted'] }}</h6>
             <a href="/peopleview?id={{ row['ID'] }}"><button class="form-control">Open</button></a>
             <form action="/delete_person" method="post" class="delete-button" onsubmit="return confirm('Delete this person?');">
                 <input type="hidden" name="id" value="{{ row['ID'] }}">     
@@ -48,7 +48,9 @@
 <div class="filter-div">
 <button class="filter-buttons" onclick="filterMVP(this)"> MVP </button>
 <button class="filter-buttons" onclick="filterFamily(this)"> Family </button>
+<button class="filter-buttons" onclick="filterLowHealth(this)"> Low HP </button>
 <button class="filter-buttons" onclick="unfilterAll()"> Clear </button>
+
 </div>
 <br>
 {% endblock %}

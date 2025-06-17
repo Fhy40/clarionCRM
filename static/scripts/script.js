@@ -1,6 +1,6 @@
 
 console.log("Hello World")
-
+const maxDays = 90;
 function getCurrentTimestamp() {
     const now = new Date();
     const year = now.getFullYear();
@@ -58,6 +58,26 @@ function filterFamily(button) {
     });
 }
 
+function filterLowHealth(button) {
+    const allCards = document.querySelectorAll('.agent-card-base');
+    setActiveButton(button);
+    allCards.forEach(card => {
+        // Check if the card has the 'agent-card-mvp' class (which signifies Best Friend)
+        const daysElement = card.querySelector('.days-since');
+        if (daysElement) {
+            const days = parseInt(daysElement.textContent.trim());
+
+            if (!isNaN(days)) {
+                // Show cards where days since contacted is greater than 45
+                if (days >= 45) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            }
+        }
+    });
+}
 
 
 function setActiveButton(activeBtn) {
@@ -87,7 +107,42 @@ function unfilterAll() {
         }
         const form = document.querySelector('form[action="/update_person"]');
 
+        if (form) {
         form.addEventListener("submit", function() {
         document.getElementById("last_contacted_input").value =  getCurrentTimestamp();
-        });
+            });
+        }
+
+    document.querySelectorAll('.agent-card-base').forEach(card => {
+    // Get the <h6 class="days-since"> element
+    const daysElement = card.querySelector('.days-since');
+    const fillBar = card.querySelector('.bar .fill');
+
+    if (daysElement && fillBar) {
+        // Get numeric value from text
+        const days = parseInt(daysElement.textContent.trim());
+
+        if (!isNaN(days)) {
+            // Calculate width based on freshness (0% if > maxDays)
+            const maxDays = 240;
+            let widthPercent = Math.max(0, 100 - (days / maxDays) * 100);
+
+            // Update fill bar width
+            fillBar.style.width = `${widthPercent}%`;
+            console.log(`Card: ${card.dataset.priority}, Days: ${days}, Width: ${widthPercent}%`);
+
+            // Optional: color coding
+            if (days >= (maxDays/3)) {
+                fillBar.style.backgroundColor = '#ff4d4d'; // red
+            } else if (days >= (maxDays/6)) {
+                fillBar.style.backgroundColor = '#ffa500'; // orange
+            }
+        }
+        }   
+    });
+
+
+
+
+
     });

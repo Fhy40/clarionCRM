@@ -93,10 +93,26 @@ def close_db(exception):
 def home():
     db = get_db()
     rows = db.execute('SELECT * FROM main').fetchall()
+    processed_rows = []
+    today = datetime.now()
+
+    for row in rows:
+        row_dict = dict(row)
+        last_contacted_str = row_dict.get('Last_Contacted', '')
+
+        try:
+            last_contacted_date = datetime.strptime(last_contacted_str[:10], '%Y-%m-%d')
+            delta_days = (today - last_contacted_date).days
+        except Exception as e:
+            print(f"Error parsing date for ID {row_dict.get('ID')}: {e}")
+            delta_days = None  # or a default like -1
+
+        row_dict['days_since_contacted'] = delta_days
+        processed_rows.append(row_dict)
     people_count = db.execute('SELECT COUNT(ID) FROM main;').fetchall()
-    db = get_db()
+    
     print(dict(people_count[0]))    
-    return render_template('index.html', rows=rows,people_count = dict(people_count[0]))
+    return render_template('index.html', rows=processed_rows,people_count = dict(people_count[0]))
 
 @app.route('/peopleview')
 def peopleview():
