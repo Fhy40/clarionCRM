@@ -81,8 +81,9 @@ function filterLowHealth(button) {
 
 
 function setActiveButton(activeBtn) {
+    //document.getElementById("numberofCards").textContent =  countVisibleCards();
     const buttons = document.querySelectorAll('.filter-buttons');
-    buttons.forEach(btn => btn.classList.remove('active'));
+    buttons.forEach(btn => btn.classList.remove('active'));  
     activeBtn.classList.add('active');
 }
 
@@ -98,17 +99,33 @@ function unfilterAll() {
     document.querySelectorAll('.filter-buttons').forEach(btn => btn.classList.remove('active'));
 }
 
+function countVisibleCards() {
+    const allCards = document.querySelectorAll('.agent-card-base');
+    let visibleCount = 0;
+
+    allCards.forEach(card => {
+        const style = window.getComputedStyle(card);
+        if (style.display !== 'none') {
+            visibleCount++;
+        }
+    });
+
+    return visibleCount.toString();
+}
+
 // Set formatted date on page load
     document.addEventListener('DOMContentLoaded', () => {
-        const dateElement = document.getElementById('dateintro');
-        const numPeople = document.getElementById('numPeople');
+        const dateElement = document.getElementById('dateintro');      
+                
         if (dateElement) {
             dateElement.textContent = formatDate(new Date());
-        }
+        }        
+        
         const form = document.querySelector('form[action="/update_person"]');
 
         if (form) {
         form.addEventListener("submit", function() {
+        console.log(getCurrentTimestamp())
         document.getElementById("last_contacted_input").value =  getCurrentTimestamp();
             });
         }

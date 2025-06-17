@@ -5,9 +5,11 @@
 {% endblock %}
 
 {% block body %}
+<div>
 <h1 class="page-title">ClarionCRM</h1>
 <h2 class="page-subtitle" id="dateintro">It's the 14th of June 2025</h2>
-<h5 class="page-subtitle" id="numPeople">There are {{ people_count['COUNT(ID)'] }} people in the Database</h5>
+<h3 class="page-subtitle" id="numPeople">There are {{ people_count['COUNT(ID)'] }} people in the Database</h5>
+</div>
 <div class="top-right-button">
     <a href="/addperson"><button class="form-control">Add Person</button></a>
 </div>
@@ -50,7 +52,10 @@
 <button class="filter-buttons" onclick="filterFamily(this)"> Family </button>
 <button class="filter-buttons" onclick="filterLowHealth(this)"> Low HP </button>
 <button class="filter-buttons" onclick="unfilterAll()"> Clear </button>
-
+</div>
+<div>
+<br>
+<!--<p id="numberofCards"> Currently showing X people</p>-->
 </div>
 <br>
 {% endblock %}
