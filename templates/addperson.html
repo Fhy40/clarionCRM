@@ -5,8 +5,9 @@
 {% endblock %}
 
 {% block body %}
+<div>
 <h1 class="page-title">Add a New Person</h1>
-
+</div>
 <div class="form-container">
     <div class="agent-card-base agent-card" style="max-width: 400px; width: 100%;">
         <form action="/add_person" method="post">
@@ -37,6 +38,9 @@
             <label for="phone_number">Phone Number:</label><br>
             <input type="text" name="phone_number"><br><br>
 
+            <label for="email">Email:</label><br>
+            <input type="text" name="email"><br><br>
+
             <label for="priority">Priority (1–5):</label><br>
             <input type="number" name="priority" min="1" max="5" required><br><br>
 
@@ -48,10 +52,10 @@
 
             <button type="submit">Add Person</button>
         </form>
-    </div>
+    </div>    
 </div>
-
-<div class="back-button">
+    <div class="back-button">
     <a href="/"><button class="form-control">Back</button></a>
-</div>
+    </div>
+
 {% endblock %}

@@ -14,6 +14,11 @@ div {
     text-align: center;
 }
 
+.back-button {
+    width: 100%;    
+    justify-content: center;
+    align-items: center;
+}
 .filter-div{
     padding-left: 10px;
 }
@@ -156,7 +161,7 @@ div {
     padding: 20px;
     border-radius: 12px;
     width: 300px;
-    max-width: 40%;
+    max-width: 25%;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
     position: relative;
 }

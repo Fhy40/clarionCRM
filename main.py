@@ -31,8 +31,9 @@ def update_person():
     db.execute('UPDATE main SET Last_Contacted = ?, Comments = ? WHERE ID = ?', 
                (last_contacted, comments, person_id))
     db.commit()
-
+    print("Last contacted received:", last_contacted)
     # Redirect back to the homepage or wherever appropriate
+    
     return redirect(url_for('home'))
 
 @app.route('/delete_person', methods=['POST'])
@@ -59,6 +60,7 @@ def add_person():
         comments = request.form.get('comments', '')
         phone_number = request.form.get('phone_number', '')
         industry = request.form.get('industry','')
+        email = request.form.get('email','')
         
         # Static/default values
         profile_picture = 'assets/pic/facebookprofile.jpeg'  # adjust path if needed
@@ -70,12 +72,12 @@ def add_person():
         db.execute('''
             INSERT INTO main (
                 Name, Category, Type, Priority, Communication_Routes,
-                Phone_Number, Profile_Picture, Last_Contacted, Last_Meeting, Comments,Industry
+                Phone_Number, Profile_Picture, Last_Contacted, Last_Meeting, Comments,Industry, Email
             )
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         ''', (
             name, category, type_, priority, communication_routes,
-            phone_number, profile_picture, last_contacted, last_meeting, comments,industry
+            phone_number, profile_picture, last_contacted, last_meeting, comments,industry, email
         ))
         db.commit()
 

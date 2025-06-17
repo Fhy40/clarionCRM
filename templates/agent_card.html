@@ -31,7 +31,7 @@
         </h6>
         <h6>Comments: {{ person['Comments'] }}</h6>
 
-        <form action="/update_person" method="post">
+        <form id="updatePersonForm" action="/update_person" method="post">
             <input type="hidden" name="id" value="{{ person['ID'] }}">
             <input type="hidden" name="last_contacted" id="last_contacted_input" value="1998-01-02 00:00:00">
 
