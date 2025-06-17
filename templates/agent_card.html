@@ -15,8 +15,8 @@
             <img src="{{ url_for('static', filename='assets/pic/facebookprofile.jpeg') }}" alt="{{ person['Name'] }}">
         </figure>
 
-        <h6>Relationship</h6>
-        <div class="bar"><div class="fill" style="width: 80%;"></div></div>
+        <!--<h6>Relationship</h6>-->
+        <!--<div class="bar"><div class="fill" style="width: 80%;"></div></div>-->
 
         <h6>Last Contacted: {{ person['Last_Contacted'][:10] }}</h6>
         <h6>Phone Number: {{ person['Phone_Number'] | string  }}</h6>

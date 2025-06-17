@@ -2,7 +2,7 @@ import flask
 import sqlite3
 from flask import Flask, render_template, g, request, redirect,  url_for
 from datetime import datetime
-
+from flask import jsonify
 
 app = flask.Flask(__name__,static_url_path='/static')
 DATABASE = 'main_database.db'
@@ -96,6 +96,9 @@ def home():
     processed_rows = []
     today = datetime.now()
 
+    max_days_row = db.execute("SELECT Value FROM settings WHERE Name = 'maxDays'").fetchone()
+    max_days_value = int(max_days_row['Value']) if max_days_row and max_days_row['Value'].isdigit() else 90
+
     for row in rows:
         row_dict = dict(row)
         last_contacted_str = row_dict.get('Last_Contacted', '')
@@ -112,7 +115,7 @@ def home():
     people_count = db.execute('SELECT COUNT(ID) FROM main;').fetchall()
     
     print(dict(people_count[0]))    
-    return render_template('index.html', rows=processed_rows,people_count = dict(people_count[0]))
+    return render_template('index.html', rows=processed_rows,people_count = dict(people_count[0]), maxDays=max_days_value)
 
 @app.route('/peopleview')
 def peopleview():
@@ -127,6 +130,22 @@ def peopleview():
 def addpersonview():
     return render_template('addperson.html')
 
+@app.route('/update_setting', methods=['POST'])
+def update_setting():
+    data = request.get_json()
+    name = data.get('name')
+    value = data.get('value')
+
+    if not name or value is None:
+        return jsonify({'success': False, 'message': 'Invalid input'}), 400
+
+    db = get_db()
+    db.execute(
+        'UPDATE settings SET Value = ? WHERE Name = ?',
+        (str(value), name)
+    )
+    db.commit()
+    return jsonify({'success': True, 'message': 'Setting updated'})
 
 
 if __name__ == '__main__':

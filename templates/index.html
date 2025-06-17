@@ -5,6 +5,13 @@
 {% endblock %}
 
 {% block body %}
+
+<script>
+    window.maxDays = JSON.parse('{{ maxDays|default(90)|tojson }}');
+    //window.maxDays = {{ maxDays | default(90) | tojson }};
+</script>
+
+
 <div>
 <h1 class="page-title">ClarionCRM</h1>
 <h2 class="page-subtitle" id="dateintro">It's the 14th of June 2025</h2>
@@ -12,6 +19,7 @@
 </div>
 <div class="top-right-button">
     <a href="/addperson"><button class="form-control">Add Person</button></a>
+    <span style="cursor: pointer; font-size: 30px;" onclick="openSettingsModal()">⚙️</span>
 </div>
 <br>
 <div class="horizontal-scroll">
@@ -58,4 +66,19 @@
 <!--<p id="numberofCards"> Currently showing X people</p>-->
 </div>
 <br>
+<div id="settingsModal" class="modal">
+    <div class="modal-content">
+        <span class="close-button" onclick="closeSettingsModal()">&times;</span>
+        <h2>Settings</h2>
+        <form id="settingsForm">
+            <label for="maxDaysInput">Max Days:</label>
+            <input type="number" id="maxDaysInput" name="maxDays" min="1" required value="{{ maxDays }}">
+            <br><br>
+            <button type="submit">Save</button>
+        </form>
+    </div>
+</div>
+
+
+
 {% endblock %}

@@ -1,6 +1,7 @@
 
 console.log("Hello World")
-const maxDays = 90;
+console.log("Max days is:", window.maxDays);
+
 function getCurrentTimestamp() {
     const now = new Date();
     const year = now.getFullYear();
@@ -12,6 +13,52 @@ function getCurrentTimestamp() {
     return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
 }
 
+function openSettingsModal() {
+    console.log("Opening modal...");
+    const modal = document.getElementById('settingsModal');
+    if (!modal) {
+        console.error("Modal not found in DOM!");
+        return;
+    }
+    document.getElementById('maxDaysInput').value = window.maxDays || 90;
+    modal.classList.add('show');
+}
+
+function closeSettingsModal() {
+    document.getElementById('settingsModal').classList.remove('show');
+}
+
+
+document.getElementById('settingsForm').addEventListener('submit', function(e) {
+    e.preventDefault(); // Prevent default form submission
+
+    const newMaxDays = parseInt(document.getElementById('maxDaysInput').value);
+
+    if (!isNaN(newMaxDays) && newMaxDays > 0) {
+        fetch('/update_setting', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                name: 'maxDays',
+                value: newMaxDays
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                console.log("maxDays updated in DB");
+                location.reload();  // Optional: Reload page to reflect new value
+            } else {
+                alert("Failed to update setting: " + data.message);
+            }
+        })
+        .catch(error => {
+            console.error("Error updating maxDays:", error);
+        });
+    }
+});
 
 function formatDate(date) {
         const day = date.getDate();
@@ -140,8 +187,7 @@ function countVisibleCards() {
         const days = parseInt(daysElement.textContent.trim());
 
         if (!isNaN(days)) {
-            // Calculate width based on freshness (0% if > maxDays)
-            const maxDays = 240;
+            // Calculate width based on freshness (0% if > maxDays)            
             let widthPercent = Math.max(0, 100 - (days / maxDays) * 100);
 
             // Update fill bar width
