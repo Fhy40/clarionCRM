@@ -3,9 +3,9 @@ import sqlite3
 from flask import render_template
 import pandas as pd
 
-contacts_file = 'contacts.csv'
+#contacts_file = 'contacts.csv'
 
-contacts_csv = pd.read_csv(contacts_file)
+#contacts_csv = pd.read_csv(contacts_file)
 
 def db_initialization(databaseexcel):
     excel_file = databaseexcel
@@ -46,6 +46,16 @@ def db_initialization(databaseexcel):
             Name TEXT,
             Value TEXT
         )
+    ''')
+    cursor.execute('DROP TABLE IF EXISTS engagements')
+    cursor.execute('''
+        CREATE TABLE engagements (
+        ID INTEGER PRIMARY KEY AUTOINCREMENT,
+        Person_ID INTEGER NOT NULL,
+        Type TEXT,
+        Timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+        FOREIGN KEY (Person_ID) REFERENCES main(ID)
+    );
     ''')
 
     # Insert default setting row for maxDays

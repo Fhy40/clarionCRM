@@ -32,12 +32,15 @@
         <h6>Comments: {{ person['Comments'] }}</h6>
 
         <form id="updatePersonForm" action="/update_person" method="post">
-            <input type="hidden" name="id" value="{{ person['ID'] }}">
-            <input type="hidden" name="last_contacted" id="last_contacted_input" value="1998-01-02 00:00:00">
+        <input type="hidden" name="id" value="{{ person['ID'] }}">
+        <input type="hidden" name="last_contacted" id="last_contacted_input" value="1998-01-02 00:00:00">
+        <input type="hidden" name="type_switch" id="type_switch_input" value="">
 
-            <label for="comments">Update Comments:</label><br>
-            <textarea name="comments" id="comments" rows="3" cols="40">{{ person['Comments'] }}</textarea><br><br>
-            <button type="submit">Contacted</button>
+        <label for="comments">Update Comments:</label><br>
+        <textarea name="comments" id="comments" rows="3" cols="40">{{ person['Comments'] }}</textarea><br><br>
+
+        <button type="submit" onclick="document.getElementById('type_switch_input').value='online'">Contacted</button>
+        <button type="submit" onclick="document.getElementById('type_switch_input').value='realife'">Met IRL</button>
         </form>
     </div>
 </div>

@@ -24,12 +24,29 @@ def get_person(id):
 
 @app.route('/update_person', methods=['POST'])
 def update_person():
-    person_id = request.form['id']
-    last_contacted = request.form['last_contacted']
-    comments = request.form.get('comments', '')
-    db = get_db()
-    db.execute('UPDATE main SET Last_Contacted = ?, Comments = ? WHERE ID = ?', 
-               (last_contacted, comments, person_id))
+    type_switch = request.form['type_switch']
+    if(type_switch == "online"):
+        person_id = request.form['id']
+        last_contacted = request.form['last_contacted']
+        comments = request.form.get('comments', '')
+        db = get_db()
+        db.execute('UPDATE main SET Last_Contacted = ?, Comments = ? WHERE ID = ?', 
+                (last_contacted, comments, person_id))
+        db.execute('''
+            INSERT INTO engagements (Person_ID, Timestamp,Type) 
+            VALUES (?, ?, ?)
+        ''', (person_id, last_contacted,type_switch))
+    elif(type_switch == "realife"):
+        person_id = request.form['id']
+        last_contacted = request.form['last_contacted']
+        comments = request.form.get('comments', '')
+        db = get_db()
+        db.execute('UPDATE main SET Last_Meeting = ?, Comments = ? WHERE ID = ?', 
+                (last_contacted, comments, person_id))
+        db.execute('''
+            INSERT INTO engagements (Person_ID, Timestamp,Type) 
+            VALUES (?, ?,?)
+        ''', (person_id, last_contacted,type_switch))
     db.commit()
     print("Last contacted received:", last_contacted)
     # Redirect back to the homepage or wherever appropriate
