@@ -91,7 +91,6 @@ div {
 
 .bar {
     background-color: #1f2c4d;
-    border: 1px solid #0d1a2d;
     height: 16px;
     border-radius: 3px;
     margin-left: 10px;
@@ -173,4 +172,14 @@ div {
     font-size: 24px;
     font-weight: bold;
     cursor: pointer;
+}
+
+.glow-hover {
+    transition: box-shadow 0.3s ease-in-out;
+    border-radius: 8px;
+}
+
+.glow-hover:hover {
+    box-shadow: 0 0 20px 5px rgba(0, 153, 255, 0.7); /* Glowing blue */
+    transform: scale(1.05); /* Optional: subtle zoom on hover */
 }

@@ -10,7 +10,7 @@
 </div>
 <div class="form-container">
     <div class="agent-card-base agent-card" style="max-width: 400px; width: 100%;">
-        <form action="/add_person" method="post">
+        <form action="/add_person" method="post" enctype="multipart/form-data">
             <label for="name">Name:</label><br>
             <input type="text" name="name" required><br><br>
 
@@ -50,12 +50,14 @@
             <label for="comments">Comments:</label><br>
             <textarea name="comments" rows="3" cols="30"></textarea><br><br>
 
+            <label for="profile_pic">Profile Picture (optional):</label><br>
+            <input type="file" name="profile_pic" accept="image/*"><br><br>
+
             <button type="submit">Add Person</button>
         </form>
     </div>    
 </div>
-    <div class="back-button">
+<div class="back-button">
     <a href="/"><button class="form-control">Back</button></a>
-    </div>
-
+</div>
 {% endblock %}

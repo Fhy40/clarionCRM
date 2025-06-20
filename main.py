@@ -2,11 +2,14 @@ import flask
 import sqlite3
 from flask import Flask, render_template, g, request, redirect,  url_for, jsonify
 from datetime import datetime
-
+from werkzeug.utils import secure_filename
+import os
 
 app = flask.Flask(__name__,static_url_path='/static')
 DATABASE = 'main_database.db'
-
+UPLOAD_FOLDER = 'static/upload'
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'bmp'}
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 
 
@@ -79,8 +82,19 @@ def add_person():
         industry = request.form.get('industry','')
         email = request.form.get('email','')
         
+        
+        #Handle optional profile picture upload
+        file = request.files.get('profile_pic')
+        if file and allowed_file(file.filename):
+            filename = secure_filename(f"newprofile_{name}_{file.filename}")
+            upload_dir = os.path.join(app.root_path, 'static', 'upload')
+            os.makedirs(upload_dir, exist_ok=True)
+            file.save(os.path.join(upload_dir, filename))
+            profile_picture = f"upload/{filename}".replace("\\", "/")
+        else:
+            profile_picture = "upload/profileDP.jpeg"  # Default fallback
+
         # Static/default values
-        profile_picture = 'assets/pic/facebookprofile.jpeg'  # adjust path if needed
         timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         last_contacted = timestamp
         last_meeting = timestamp
@@ -148,6 +162,32 @@ def peopleview():
 @app.route('/addperson')
 def addpersonview():
     return render_template('addperson.html')
+
+
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+@app.route('/upload_picture', methods=['POST'])
+def upload_picture():
+    person_id = request.form['id']
+    file = request.files.get('profile_pic')
+    
+    if file and allowed_file(file.filename):
+        
+        filename = secure_filename(f"profile_{person_id}_" + file.filename)
+        filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+        print(filepath)
+        file.save(filepath)
+        print(filepath)
+        relative_path = os.path.join('upload', filename).replace("\\", "/")
+        
+
+        db = get_db()
+        db.execute('UPDATE main SET Profile_Picture = ? WHERE ID = ?', (relative_path, person_id))
+        db.commit()
+
+    return redirect(url_for('peopleview', id=person_id))
+
 
 @app.route('/update_setting', methods=['POST'])
 def update_setting():

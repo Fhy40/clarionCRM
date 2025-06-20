@@ -28,7 +28,7 @@
         <article class="agent-card-base agent-card{% if row['Category']|lower == 'best friend' %}-mvp{% elif row['Category']|lower == 'family' %}-fam{% endif %}" data-priority="{{ row['Priority'] }}">
             <h6>{{ row['Name'] }}</h6>
             <figure>
-                <img src="/static/assets/pic/facebookprofile.jpeg" alt="{{ row['Name'] or 'Profile Photo' }}">
+                <img id="profileImage" src="{{ url_for('static', filename=row['Profile_Picture']) }}" alt="{{ row['Name'] }}">
             </figure>
             <h6>Relationship</h6>
             <div class="bar">

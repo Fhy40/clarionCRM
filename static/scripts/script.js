@@ -119,8 +119,21 @@ document.addEventListener('DOMContentLoaded', () => {
     const dateElement = document.getElementById('dateintro');      
     if (dateElement) {
         dateElement.textContent = formatDate(new Date());
-    }        
+    }
+    
+    const scrollContainer = document.querySelector(".horizontal-scroll");
+    if (scrollContainer) {
+        // Restore scroll position
+        const savedScroll = localStorage.getItem("scrollXPosition");
+        if (savedScroll !== null) {
+            scrollContainer.scrollLeft = parseInt(savedScroll, 10);
+        }
 
+        // Save scroll position on scroll
+        scrollContainer.addEventListener("scroll", () => {
+            localStorage.setItem("scrollXPosition", scrollContainer.scrollLeft);
+        });
+    }     
     // Update last_contacted timestamp on contact form submission
     const updateForm = document.getElementById('updatePersonForm');
     console.log("Form found?", updateForm);

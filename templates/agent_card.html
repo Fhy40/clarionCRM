@@ -6,14 +6,18 @@
 
 {% block body %}
 
-<h1 class="page-title">Contact Details</h1>
+<h1 class="page-title">Update Contact Details</h1>
 
 <div class="form-container">
-    <div class="agent-card-base agent-card" style="max-width: 500px; width: 100%;">
+    <div class="agent-card-base agent-card{% if person['Category']|lower == 'best friend' %}-mvp{% elif person['Category']|lower == 'family' %}-fam{% endif %}" style="max-width: 500px; width: 100%;">
         <h6>Name: {{ person['Name'] }}</h6>
-        <figure>
-            <img src="{{ url_for('static', filename='assets/pic/facebookprofile.jpeg') }}" alt="{{ person['Name'] }}">
-        </figure>
+        <figure >        
+        <img id="profileImage" class="glow-hover" onclick="document.getElementById('dpUpload').click()" style="cursor: pointer;" src="{{ url_for('static', filename=person['Profile_Picture']) }}" alt="{{ person['Name'] }}">
+        <form id="uploadForm" action="/upload_picture" method="post" enctype="multipart/form-data">
+            <input type="file" id="dpUpload" name="profile_pic" accept="image/*" style="display: none;" onchange="document.getElementById('uploadForm').submit();">
+            <input type="hidden" name="id" value="{{ person['ID'] }}">
+        </form>
+    </figure>
 
         <!--<h6>Relationship</h6>-->
         <!--<div class="bar"><div class="fill" style="width: 80%;"></div></div>-->

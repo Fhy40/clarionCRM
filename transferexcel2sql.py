@@ -2,18 +2,13 @@ import flask
 import sqlite3
 from flask import render_template
 import pandas as pd
+import os
 
 #contacts_file = 'contacts.csv'
 
 #contacts_csv = pd.read_csv(contacts_file)
 
-def db_initialization(databaseexcel):
-    excel_file = databaseexcel
-    df = pd.read_excel(excel_file, sheet_name='Main')
-
-    # Remove existing ID column if present (we'll auto-increment it)
-    if 'ID' in df.columns:
-        df = df.drop(columns=['ID'])
+def db_initialization(databaseexcel):    
 
     conn = sqlite3.connect('main_database.db')
     cursor = conn.cursor()
@@ -65,9 +60,30 @@ def db_initialization(databaseexcel):
     ''', ('maxDays', '180'))
 
     # Insert contact data
-    df.to_sql('main', conn, if_exists='append', index=False)
+    if(databaseexcel == "empty"):
+        print("No Excel Template Provided")
+    else:
+        excel_file = databaseexcel
+        df = pd.read_excel(excel_file, sheet_name='Main')
 
-    conn.commit()
-    conn.close()
+        # Remove existing ID column if present (we'll auto-increment it)
+        if 'ID' in df.columns:
+            df = df.drop(columns=['ID'])
 
-db_initialization('database.xlsx')
+        df.to_sql('main', conn, if_exists='append', index=False)
+
+        conn.commit()
+        conn.close()
+
+
+
+database_path = 'database-sample.xlsx'
+
+if os.path.exists(database_path):
+    print(f"{database_path} exists.") 
+    db_initialization(database_path)   
+else:
+    print(f"{database_path} does not exist.")
+    db_initialization('empty')  
+    
+#db_initialization('empty')
