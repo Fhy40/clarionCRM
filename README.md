@@ -2,6 +2,7 @@
 A simple CRM written in python flask to help manage networking opportunites. Starting off small but hoping to add more features.
 
 <h2>Current Features:</h2>
+
 * Adding contact cards
 * Updating Comments
 * Updating Last Contacted which increases or decreases the relationship level
@@ -10,13 +11,14 @@ A simple CRM written in python flask to help manage networking opportunites. Sta
 * Profile Picture Upload
 
 <h2>Planned Features:</h2>
+
 * General Card Color Corrections and Styling
 * Scroll Bar that remembers position
 * Editing Cards after creation
 * More elements that glow (tastefully)
 * Database Cleanups
 
-<h2>Screenshots</h2>
+<h2>Screenshots:</h2>
 <h4>Homepage: </h4>
 
 ![image](https://github.com/user-attachments/assets/b1782051-3448-44ae-8aa9-0f0b19e1d83c)
