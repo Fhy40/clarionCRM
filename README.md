@@ -5,6 +5,7 @@ A simple CRM written in python flask to help manage networking opportunites. Sta
 
 * Adding contact cards
 * Updating Comments
+* Mobile Support
 * Updating Last Contacted which increases or decreases the relationship level
 * Basic Filters to help you sort through the list of contacts
 * Changing certain settings (For now it's only maxDays which determines how relationship level is measured)
@@ -13,7 +14,6 @@ A simple CRM written in python flask to help manage networking opportunites. Sta
 <h2>Planned Features:</h2>
 
 * General Card Color Corrections and Styling
-* Scroll Bar that remembers position
 * Editing Cards after creation
 * More elements that glow (tastefully)
 * Database Cleanups
@@ -31,6 +31,19 @@ A simple CRM written in python flask to help manage networking opportunites. Sta
 
 ![image](https://github.com/user-attachments/assets/0dafc09d-4aff-4817-9f22-78336653c17b)
 
+<h2>How to Run:</h2>
+
+<h4>Step 1</h4>
+Download the entire folder directory
+
+<h4>Step 2</h4>
+Run the script initialize_database.py to create your SQLite3 database that will be used by clarionCRM. It should create a file called main_database.db in your folder
+
+<h4>Step 3</h4>
+Run your flask application with the command "flask --app main run" to run it locally or **"flask --app main run --host=0.0.0.0"** to run it on your local network
+
+<h4>Step 4</h4>
+Navigate to the webpage by going to localhost:5000 or your computers local ip address:5000
 
 
 Stick around as I update this further
