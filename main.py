@@ -1,23 +1,30 @@
 import flask
 import sqlite3
-from flask import Flask, render_template, g, request, redirect,  url_for, jsonify
+from flask import Flask, render_template, g, request, redirect,  url_for, jsonify, session
 from datetime import datetime
 from werkzeug.utils import secure_filename
+from werkzeug.security import check_password_hash
 import os
 
 app = flask.Flask(__name__,static_url_path='/static')
+app.secret_key = 'Storm, earth and fire.. heed my call'
+
 DATABASE = 'main_database.db'
 UPLOAD_FOLDER = 'static/upload'
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'bmp'}
+
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-
-
 
 def get_db():
     if 'db' not in g:
         g.db = sqlite3.connect(DATABASE)
-        g.db.row_factory = sqlite3.Row  # To access columns by name
+        g.db.row_factory = sqlite3.Row 
     return g.db
+
+def get_admin():
+    db = get_db()
+    admin = db.execute('SELECT * FROM adminuser LIMIT 1').fetchall()
+    return admin
 
 def get_person(id):
     db = get_db()
@@ -52,7 +59,7 @@ def update_person():
         ''', (person_id, last_contacted,type_switch))
     db.commit()
     print("Last contacted received:", last_contacted)
-    # Redirect back to the homepage or wherever appropriate
+    
     
     return redirect(url_for('home'))
 
@@ -83,7 +90,7 @@ def add_person():
         email = request.form.get('email','')
         
         
-        #Handle optional profile picture upload
+        
         file = request.files.get('profile_pic')
         if file and allowed_file(file.filename):
             filename = secure_filename(f"newprofile_{name}_{file.filename}")
@@ -92,9 +99,9 @@ def add_person():
             file.save(os.path.join(upload_dir, filename))
             profile_picture = f"upload/{filename}".replace("\\", "/")
         else:
-            profile_picture = "upload/profileDP.jpeg"  # Default fallback
+            profile_picture = "upload/profileDP.jpeg"  # Default profile picture upload
 
-        # Static/default values
+        # Gets the current timestamp
         timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         last_contacted = timestamp
         last_meeting = timestamp
@@ -122,8 +129,39 @@ def close_db(exception):
     if db is not None:
         db.close()
 
-@app.route('/')
+@app.route('/', methods=['GET','POST'])
+def login():
+    if request.method == 'GET':
+        return render_template('login.html')
+    elif request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        admin = get_admin() 
+        admin=dict(admin[0])
+        stored_hash = admin['Password']
+        print(admin)
+        if username == admin['Username'] and check_password_hash(stored_hash, password):
+            session['logged_in'] = True
+            session['username'] = username
+            return redirect(url_for('home'))
+        else:
+            if username == "" or password == "":
+                error = "Username or Password input is blank but this should never happen so not sure how you got this"
+            else:
+                error = "Invalid username or password"
+            return render_template('login.html', error=error)
+
+@app.route('/logout')
+def logout():
+    session.clear()
+    return redirect(url_for('login'))  
+
+
+@app.route('/home')
 def home():
+    if not session.get('logged_in'):
+        return redirect(url_for('login'))
+
     db = get_db()
     rows = db.execute('SELECT * FROM main').fetchall()
     processed_rows = []
@@ -152,6 +190,9 @@ def home():
 
 @app.route('/peopleview')
 def peopleview():
+    if not session.get('logged_in'):
+        return redirect(url_for('login'))
+    
     person_id = request.args.get('id')
     if not person_id:
         return "No ID provided", 400
@@ -161,6 +202,9 @@ def peopleview():
 
 @app.route('/addperson')
 def addpersonview():
+    if not session.get('logged_in'):
+        return redirect(url_for('login'))
+    
     return render_template('addperson.html')
 
 
@@ -191,6 +235,9 @@ def upload_picture():
 
 @app.route('/update_setting', methods=['POST'])
 def update_setting():
+    if not session.get('logged_in'):
+        return redirect(url_for('login'))
+    
     data = request.get_json()
     name = data.get('name')
     value = data.get('value')

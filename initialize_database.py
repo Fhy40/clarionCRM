@@ -3,10 +3,20 @@ import sqlite3
 from flask import render_template
 import pandas as pd
 import os
+from werkzeug.security import generate_password_hash
 
+default_username  = "admin"
+default_password  = "root"
 #contacts_file = 'contacts.csv'
-
 #contacts_csv = pd.read_csv(contacts_file)
+
+input_username = input(f"Enter admin username (default: {default_username}): ").strip()
+input_password = input(f"Enter admin password (default: {default_password}): ").strip()
+
+USERNAME = input_username if input_username else default_username
+PASSWORD = input_password if input_password else default_password
+
+hashed_password = generate_password_hash(PASSWORD)
 
 def db_initialization(databaseexcel):    
 
@@ -32,7 +42,14 @@ def db_initialization(databaseexcel):
             Comments TEXT
         )
     ''')
-
+    cursor.execute('DROP TABLE IF EXISTS adminuser')
+    cursor.execute('''
+        CREATE TABLE adminuser (
+            ID INTEGER PRIMARY KEY AUTOINCREMENT,
+            Username TEXT,
+            Password TEXT
+        )
+    ''')
     # Create settings table
     cursor.execute('DROP TABLE IF EXISTS settings')
     cursor.execute('''
@@ -59,6 +76,12 @@ def db_initialization(databaseexcel):
         VALUES (?, ?)
     ''', ('maxDays', '180'))
 
+    # Insert deafult admin user into adminuser table
+    cursor.execute('''
+        INSERT INTO adminuser (Username, Password
+        VALUES (?, ?)
+    ''', (USERNAME, hashed_password))
+
     # Insert contact data
     if(databaseexcel == "empty"):
         print("No Excel Template Provided")
@@ -77,7 +100,7 @@ def db_initialization(databaseexcel):
 
 
 
-database_path = 'database-sample.xlsx'
+database_path = 'database.xlsx'
 
 if os.path.exists(database_path):
     print(f"{database_path} exists.") 

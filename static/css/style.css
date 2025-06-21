@@ -38,7 +38,6 @@ div {
 
 .agent-card-base {
     text-align: center;
-    border: 1px solid #21428B;
     padding: 10px;
     border-radius: 16px;
     font-size: 24px;
@@ -229,4 +228,9 @@ div {
 .glow-hover:hover {
     box-shadow: 0 0 20px 5px rgba(0, 153, 255, 0.7); /* Glowing blue */
     transform: scale(1.05); /* Optional: subtle zoom on hover */
+}
+
+#logout-button {
+    background-color: rgb(255, 47, 47);
+    color: rgb(255, 255, 255)
 }

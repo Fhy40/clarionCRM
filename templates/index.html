@@ -16,10 +16,12 @@
 <h1 class="page-title">ClarionCRM</h1>
 <h2 class="page-subtitle" id="dateintro">It's the 14th of June 2025</h2>
 <h3 class="page-subtitle" id="numPeople">There are {{ people_count['COUNT(ID)'] }} people in the Database</h5>
+    
 </div>
 <div class="top-right-button">
     <a href="/addperson"><button class="form-control">Add Person</button></a>
     <span style="cursor: pointer; font-size: 30px;" onclick="openSettingsModal()">⚙️</span>
+    <a href="{{ url_for('logout') }}"><button id="logout-button" class="form-control">Logout</button></a>
 </div>
 <br>
 <div class="horizontal-scroll">

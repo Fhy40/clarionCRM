@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Welcome to ClarionCRM</title>
+{% endblock %}
+
+{% block body %}
+<div>
+<h1 class="page-title">Welcom to ClarionCRM</h1>
+<h2 class="page-subtitle" id="dateintro">Please login</h2>
+</div>
+<div class="form-container">
+    <div class="agent-card-base agent-card" style="max-width: 400px; width: 100%;">
+        {% if error %}
+            <p style="color:red;">{{ error }}</p>
+        {% endif %}
+        <form action="/" method="post" enctype="multipart/form-data">
+            <label for="name">Username:</label><br>
+            <input type="text" name="username" required>           
+            <br>
+            <br>
+            <label for="password">Password:</label><br>
+            <input type="password" name="password" required><br><br>
+
+            <button type="submit">Login</button>
+        </form>
+    </div>    
+</div>
+
+{% endblock %}
