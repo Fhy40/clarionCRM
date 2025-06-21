@@ -3,20 +3,23 @@ A simple CRM written in python flask to help manage networking opportunites. Sta
 
 <h2>Current Features:</h2>
 
-* Adding contact cards
-* Updating Comments
-* Mobile Support
-* Updating Last Contacted which increases or decreases the relationship level
-* Basic Filters to help you sort through the list of contacts
-* Changing certain settings (For now it's only maxDays which determines how relationship level is measured)
-* Profile Picture Upload
+* Adding contact cards ✅
+* Updating Comments ✅
+* Mobile Support ✅
+* Updating Last Contacted which increases or decreases the relationship level ✅
+* Basic Filters to help you sort through the list of contacts ✅
+* Changing certain settings (For now it's only maxDays which determines how relationship level is measured) ✅
+* Profile Picture Upload ✅
 
 <h2>Planned Features:</h2>
 
-* General Card Color Corrections and Styling
-* Editing Cards after creation
-* More elements that glow (tastefully)
-* Database Cleanups
+* General Card Color Corrections and Styling 🛠️
+* Login System 🛠️
+* Sorting Cards by relationship level 🛠️
+* Google Calendar Intergration 🛠️
+* Editing Cards after creation 🛠️
+* More elements that glow (tastefully) 🛠️
+* Database Cleanups 🛠️
 
 <h2>Screenshots:</h2>
 <h4>Homepage: </h4>
@@ -46,4 +49,4 @@ Run your flask application with the command "flask --app main run" to run it loc
 Navigate to the webpage by going to localhost:5000 or your computers local ip address:5000
 
 
-Stick around as I update this further
+Stick around as I update this project
