@@ -40,7 +40,8 @@ A simple CRM written in python flask to help manage networking opportunites. Sta
 Download the entire folder directory
 
 <h4>Step 2</h4>
-Run the script initialize_database.py to create your SQLite3 database that will be used by clarionCRM. It should create a file called main_database.db in your folder
+Run the script initialize_database.py to create your SQLite3 database that will be used by clarionCRM. It should create a file called main_database.db in your folder.
+When it prompts you, you can choose to input a username and password. Or you can leave it as default
 
 <h4>Step 3</h4>
 Run your flask application with the command "flask --app main run" to run it locally or **"flask --app main run --host=0.0.0.0"** to run it on your local network
