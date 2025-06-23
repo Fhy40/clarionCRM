@@ -78,7 +78,7 @@ def db_initialization(databaseexcel):
 
     # Insert deafult admin user into adminuser table
     cursor.execute('''
-        INSERT INTO adminuser (Username, Password
+        INSERT INTO adminuser (Username, Password)
         VALUES (?, ?)
     ''', (USERNAME, hashed_password))
 
@@ -94,19 +94,24 @@ def db_initialization(databaseexcel):
             df = df.drop(columns=['ID'])
 
         df.to_sql('main', conn, if_exists='append', index=False)
-
-        conn.commit()
-        conn.close()
+    conn.commit()
+    conn.close()    
 
 
 
 database_path = 'database.xlsx'
+sample_database_path = 'database-sample.xlsx'
 
 if os.path.exists(database_path):
     print(f"{database_path} exists.") 
     db_initialization(database_path)   
+elif os.path.exists(sample_database_path):
+    print(f"{sample_database_path} exists.") 
+    db_initialization(sample_database_path)
 else:
     print(f"{database_path} does not exist.")
+    print(f"{sample_database_path} also does not exist.")
+    print("Initializing with empty database")
     db_initialization('empty')  
     
 #db_initialization('empty')
