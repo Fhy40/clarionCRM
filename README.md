@@ -1,6 +1,13 @@
 # clarionCRM
 A simple CRM written in python flask to help manage networking opportunites. Starting off small but hoping to add more features.
 
+<h2>Learning Goals</h2>
+
+* Writing a backend
+* Learning some simple UI tricks with CSS
+* Writing my own auth
+* Releasing a project that other people are easily able to install
+
 <h2>Current Features:</h2>
 
 * Adding contact cards ✅
@@ -14,11 +21,11 @@ A simple CRM written in python flask to help manage networking opportunites. Sta
 <h2>Planned Features:</h2>
 
 * General Card Color Corrections and Styling 🛠️
-* Login System 🛠️
+* Login System ✅
 * Sorting Cards by relationship level 🛠️
 * Google Calendar Intergration 🛠️
 * Editing Cards after creation 🛠️
-* More elements that glow (tastefully) 🛠️
+* More elements that glow (tastefully) ✅
 * Database Cleanups 🛠️
 
 <h2>Screenshots:</h2>
