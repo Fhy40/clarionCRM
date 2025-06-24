@@ -31,16 +31,24 @@ A simple CRM written in python flask to help manage networking opportunites but 
 <h2>Screenshots:</h2>
 <h4>Homepage: </h4>
 
-![image](https://github.com/user-attachments/assets/b1782051-3448-44ae-8aa9-0f0b19e1d83c)
+![image](https://github.com/user-attachments/assets/348f76d0-5722-44ef-8133-6548ca5f1e10)
+
 
 <h4>Filters: </h4>
+![image](https://github.com/user-attachments/assets/bc5f1a09-d89f-4a04-8b00-15b0c040bae4)
 
-![image](https://github.com/user-attachments/assets/c427244b-c93a-411c-80b3-0faea6f91466)
 
 <h4>Adding New People: </h4>
 
-![image](https://github.com/user-attachments/assets/0dafc09d-4aff-4817-9f22-78336653c17b)
+![image](https://github.com/user-attachments/assets/ed300cd6-3e1b-4d5f-a353-dafac46c5f30)
 
+
+<h4>Card View: </h4>
+![image](https://github.com/user-attachments/assets/8f715331-60ae-4f4b-8b26-bc26e24bd769)
+
+<h4>Edit Card View: </h4>
+![image](https://github.com/user-attachments/assets/f712b0ab-4502-4589-b55a-8b28e3268c6a)
+<br>
 <h2>How to Run:</h2>
 
 <h4>Step 1</h4>
