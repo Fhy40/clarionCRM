@@ -1,6 +1,7 @@
 console.log("Hello World");
-console.log("Max days is:", window.maxDays);
 
+
+//Super cool data function to give you a string
 function getCurrentTimestamp() {
     const now = new Date();
     const year = now.getFullYear();
@@ -26,6 +27,7 @@ function openSettingsModal() {
 function closeSettingsModal() {
     document.getElementById('settingsModal').classList.remove('show');
 }
+
 
 function formatDate(date) {
     const day = date.getDate();
@@ -69,6 +71,22 @@ function filterFamily(button) {
     });
 }
 
+function sortHealth(button) {
+    const container = document.querySelector('.agent-container-horizontal');
+    const cards = Array.from(container.querySelectorAll('.agent-card-base'));    
+    
+    setActiveButton(button);
+
+    cards.sort((a, b) => {
+        const daysA = parseInt(a.querySelector('.days-since').textContent.trim()) || 0;
+        const daysB = parseInt(b.querySelector('.days-since').textContent.trim()) || 0;
+        return daysB - daysA;
+    });
+    cards.forEach(card => container.appendChild(card));
+
+        
+}
+
 function filterLowHealth(button) {
     const allCards = document.querySelectorAll('.agent-card-base');
     setActiveButton(button);
@@ -95,6 +113,11 @@ function setActiveButton(activeBtn) {
 
 function unfilterAll() {
     const allCards = document.querySelectorAll('.agent-card-base');
+
+    const container = document.querySelector('.agent-container-horizontal');
+    if (container && container.dataset.originalHTML) {
+        container.innerHTML = container.dataset.originalHTML;
+    }
     allCards.forEach(card => {
         card.style.display = 'block';
     });
@@ -113,9 +136,9 @@ function countVisibleCards() {
     return visibleCount.toString();
 }
 
-// Run DOM-dependent code after full HTML load
+
 document.addEventListener('DOMContentLoaded', () => {
-    // Format date
+
     const dateElement = document.getElementById('dateintro');      
     if (dateElement) {
         dateElement.textContent = formatDate(new Date());
@@ -123,18 +146,18 @@ document.addEventListener('DOMContentLoaded', () => {
     
     const scrollContainer = document.querySelector(".horizontal-scroll");
     if (scrollContainer) {
-        // Restore scroll position
+        // Remember scroll position
         const savedScroll = localStorage.getItem("scrollXPosition");
         if (savedScroll !== null) {
             scrollContainer.scrollLeft = parseInt(savedScroll, 10);
         }
 
-        // Save scroll position on scroll
+        
         scrollContainer.addEventListener("scroll", () => {
             localStorage.setItem("scrollXPosition", scrollContainer.scrollLeft);
         });
     }     
-    // Update last_contacted timestamp on contact form submission
+    
     const updateForm = document.getElementById('updatePersonForm');
     console.log("Form found?", updateForm);
     if (updateForm) {
@@ -146,40 +169,59 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Handle settings form submit
+    // Form Settings Submits Handler
     const settingsForm = document.getElementById('settingsForm');
     if (settingsForm) {
         settingsForm.addEventListener('submit', function(e) {
             e.preventDefault();
             const newMaxDays = parseInt(document.getElementById('maxDaysInput').value);
+            const newGoldLabel = document.getElementById('goldInput').value.trim()
+            const newDiamondLabel = document.getElementById('diamondInput').value.trim()
+
+            const updates = [];
+
             if (!isNaN(newMaxDays) && newMaxDays > 0) {
-                fetch('/update_setting', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        name: 'maxDays',
-                        value: newMaxDays
-                    })
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        console.log("maxDays updated in DB");
-                        location.reload();
-                    } else {
-                        alert("Failed to update setting: " + data.message);
-                    }
-                })
-                .catch(error => {
-                    console.error("Error updating maxDays:", error);
-                });
+            updates.push({ name: 'maxDays', value: newMaxDays });
             }
+
+            if (newGoldLabel) {
+                updates.push({ name: 'goldLabel', value: newGoldLabel });
+            }
+
+            if (newDiamondLabel) {
+                updates.push({ name: 'diamondLabel', value: newDiamondLabel });
+            }
+            // Parallel processing ftw
+            Promise.all(
+                updates.map(setting =>
+                    fetch('/update_setting', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(setting)
+                    })
+                    .then(response => response.json())
+                )
+            )
+            .then(results => {
+                const anyFailures = results.some(result => !result.success);
+                if (anyFailures) {
+                    alert("Some settings failed to update.");
+                } else {
+                    console.log("All settings updated.");
+                    location.reload();
+                }
+            })
+            .catch(error => {
+                console.error("Error updating settings:", error);
+                alert("There was an error updating the settings.");
+            });
         });
     }
 
-    // Update freshness bars
+
+    // Update Relation Level Bar for all cards
     document.querySelectorAll('.agent-card-base').forEach(card => {
         const daysElement = card.querySelector('.days-since');
         const fillBar = card.querySelector('.bar .fill');
@@ -196,4 +238,8 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }   
     });
+    const container = document.querySelector('.agent-container-horizontal');
+    if (container) {
+        container.dataset.originalHTML = container.innerHTML;
+        }
 });

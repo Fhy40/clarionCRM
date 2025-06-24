@@ -122,7 +122,7 @@ def add_person():
 
     return render_template('add_person.html')
 
-@app.teardown_appcontext
+@app.teardown_appcontext #@teardown_appcontext is called after each request so the db is closed after each request
 def close_db(exception):
     db = g.pop('db', None)
     if db is not None:
@@ -169,6 +169,10 @@ def home():
     max_days_row = db.execute("SELECT Value FROM settings WHERE Name = 'maxDays'").fetchone()
     max_days_value = int(max_days_row['Value']) if max_days_row and max_days_row['Value'].isdigit() else 90
 
+    gold_row = db.execute("SELECT Value FROM settings WHERE Name = 'gold'").fetchone()
+    gold_row = gold_row['Value']
+    diamond_row = db.execute("SELECT Value FROM settings WHERE Name = 'diamond'").fetchone()
+    diamond_row = diamond_row['Value']
     for row in rows:
         row_dict = dict(row)
         last_contacted_str = row_dict.get('Last_Contacted', '')
@@ -185,7 +189,7 @@ def home():
     people_count = db.execute('SELECT COUNT(ID) FROM main;').fetchall()
     
     print(dict(people_count[0]))    
-    return render_template('index.html', rows=processed_rows,people_count = dict(people_count[0]), maxDays=max_days_value)
+    return render_template('index.html', rows=processed_rows,people_count = dict(people_count[0]), maxDays=max_days_value, gold_index = gold_row, diamond_index = diamond_row)
 
 @app.route('/peopleview')
 def peopleview():

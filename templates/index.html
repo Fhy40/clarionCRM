@@ -61,6 +61,7 @@
 <button class="filter-buttons" onclick="filterMVP(this)"> MVP </button>
 <button class="filter-buttons" onclick="filterFamily(this)"> Family </button>
 <button class="filter-buttons" onclick="filterLowHealth(this)"> Low HP </button>
+<button class="filter-buttons" onclick="sortHealth(this)"> Sort HP </button>
 <button class="filter-buttons" onclick="unfilterAll()"> Clear </button>
 </div>
 <div>
@@ -75,7 +76,13 @@
         <form id="settingsForm">
             <label for="maxDaysInput">Max Days:</label>
             <input type="number" id="maxDaysInput" name="maxDays" min="1" required value="{{ maxDays }}">
-            <br><br>
+            <br>
+            <label for="goldInput">Gold Label:</label>
+            <input type="text" id="goldInput" name="gold_index" required value="{{ gold_index }}">
+            <br>
+            <label for="diamondInput">Diamond Label:</label>
+            <input type="text" id="diamondInput" name="diamond_index" required value="{{ diamond_index }}">
+            <br>
             <button type="submit">Save</button>
         </form>
     </div>

@@ -7,8 +7,7 @@ from werkzeug.security import generate_password_hash
 
 default_username  = "admin"
 default_password  = "root"
-#contacts_file = 'contacts.csv'
-#contacts_csv = pd.read_csv(contacts_file)
+
 
 input_username = input(f"Enter admin username (default: {default_username}): ").strip()
 input_password = input(f"Enter admin password (default: {default_password}): ").strip()
@@ -70,11 +69,19 @@ def db_initialization(databaseexcel):
     );
     ''')
 
-    # Insert default setting row for maxDays
+    # Insert default setting row for maxDays, and tagging for agent-cards
     cursor.execute('''
         INSERT INTO settings (Name, Value)
         VALUES (?, ?)
     ''', ('maxDays', '180'))
+    cursor.execute('''
+        INSERT INTO settings (Name, Value)
+        VALUES (?, ?)
+    ''', ('gold', 'Family'))
+    cursor.execute('''
+        INSERT INTO settings (Name, Value)
+        VALUES (?, ?)
+    ''', ('diamond', 'Best Friend'))
 
     # Insert deafult admin user into adminuser table
     cursor.execute('''
@@ -82,14 +89,14 @@ def db_initialization(databaseexcel):
         VALUES (?, ?)
     ''', (USERNAME, hashed_password))
 
-    # Insert contact data
+    # Insert contact data, if excel is provided use that. Otherwise initialize with an empty db
     if(databaseexcel == "empty"):
         print("No Excel Template Provided")
     else:
         excel_file = databaseexcel
         df = pd.read_excel(excel_file, sheet_name='Main')
 
-        # Remove existing ID column if present (we'll auto-increment it)
+        # Remove existing ID column if present, auto-increment
         if 'ID' in df.columns:
             df = df.drop(columns=['ID'])
 
