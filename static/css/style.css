@@ -196,6 +196,13 @@ div {
 
 }
 
+.work-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+}
+
 .modal {
     display: none; /* start hidden */
     position: fixed;
@@ -207,7 +214,7 @@ div {
     justify-content: center;
 }
 
-/* When modal has "show" class, display it using flexbox centering */
+
 .modal.show {
     display: flex;
 }

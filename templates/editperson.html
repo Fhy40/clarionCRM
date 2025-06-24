@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Edit a Person - ClarionCRM</title>
+{% endblock %}
+
+{% block body %}
+<div>
+<h1 class="page-title">Edit a Person</h1>
+</div>
+
+<div class="form-container">
+    <div class="agent-card-base agent-card" style="max-width: 400px; width: 100%;">
+        <form action="/update_profile" method="post" enctype="multipart/form-data">
+            <input type="hidden" name="id" value="{{ person['ID'] }}">
+
+            <label for="name">Name:</label><br>
+            <input type="text" name="name" value="{{ person['Name'] }}" required><br><br>
+
+            <label for="category">Category:</label><br>
+            <select name="category" required>
+                <option value="">-- Select Category --</option>
+                {% for option in ['Friend', 'Best Friend', 'Family', 'Colleague', 'Other'] %}
+                    <option value="{{ option }}" {% if person['Category'] == option %}selected{% endif %}>{{ option }}</option>
+                {% endfor %}
+            </select><br><br>
+
+            <label for="type">Type:</label><br>
+            <select name="type" id="type" required>
+                <option value="">-- Select Type --</option>
+                {% for option in ['Social', 'Work', 'Social/Work'] %}
+                    <option value="{{ option }}" {% if person['Type'] == option %}selected{% endif %}>{{ option }}</option>
+                {% endfor %}
+            </select><br><br>
+            
+            <label for="industry">Industry:</label><br>
+            <input type="text" name="industry" value="{{ person['Industry'] }}"><br><br>
+
+            <label for="phone_number">Phone Number:</label><br>
+            <input type="text" name="phone_number" value="{{ person['Phone_Number'] }}"><br><br>
+
+            <label for="email">Email:</label><br>
+            <input type="text" name="email" value="{{ person['Email'] }}"><br><br>
+
+            <label for="priority">Priority (1–5):</label><br>
+            <input type="number" name="priority" min="1" max="5" value="{{ person['Priority'] }}" required><br><br>
+
+            <label for="communication">Communication Routes:</label><br>
+            <input type="text" name="communication" value="{{ person['Communication_Routes'] }}"><br><br>
+
+            <label for="comments">Comments:</label><br>
+            <textarea name="comments" rows="3" cols="30">{{ person['Comments'] }}</textarea><br><br>
+
+            <label for="profile_pic">Profile Picture (optional):</label><br>
+            <input type="file" name="profile_pic" accept="image/*"><br><br>
+
+            <button type="submit">Save Changes</button>
+        </form>
+    </div>    
+</div>
+
+<div class="back-button">
+    <a href="/home"><button class="form-control">Back</button></a>
+</div>
+{% endblock %}

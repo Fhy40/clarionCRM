@@ -203,6 +203,18 @@ def peopleview():
     print(dict(person[0]))
     return render_template('agent_card.html',person=dict(person[0]))
 
+@app.route('/editpersonview')
+def editpersonview():
+    if not session.get('logged_in'):
+        return redirect(url_for('login'))
+    
+    person_id = request.args.get('id')
+    if not person_id:
+        return "No ID provided", 400
+    person = get_person(person_id)
+    print(dict(person[0]))
+    return render_template('editperson.html',person=dict(person[0]))
+
 @app.route('/addperson')
 def addpersonview():
     if not session.get('logged_in'):
@@ -213,6 +225,53 @@ def addpersonview():
 
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+@app.route('/update_profile', methods=['POST'])
+def save_person_update():
+    if not session.get('logged_in'):
+        return redirect(url_for('login'))
+
+    person_id = request.form['id']
+    name = request.form['name']
+    category = request.form['category']
+    type_ = request.form['type']
+    priority = int(request.form['priority'])
+    communication_routes = request.form.get('communication', '')
+    phone_number = request.form.get('phone_number', '')
+    industry = request.form.get('industry', '')
+    email = request.form.get('email', '')
+    comments = request.form.get('comments', '')
+
+    file = request.files.get('profile_pic')
+    if file and allowed_file(file.filename):
+        filename = secure_filename(f"profile_{person_id}_" + file.filename)
+        filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+        file.save(filepath)
+        profile_picture = f"upload/{filename}".replace("\\", "/")
+    else:
+        # Don't update the picture if nothing new is uploaded
+        profile_picture = None
+
+    db = get_db()
+    if profile_picture:
+        db.execute('''
+            UPDATE main
+            SET Name = ?, Category = ?, Type = ?, Priority = ?, Communication_Routes = ?,
+                Phone_Number = ?, Industry = ?, Email = ?, Comments = ?, Profile_Picture = ?
+            WHERE ID = ?
+        ''', (name, category, type_, priority, communication_routes,
+              phone_number, industry, email, comments, profile_picture, person_id))
+    else:
+        db.execute('''
+            UPDATE main
+            SET Name = ?, Category = ?, Type = ?, Priority = ?, Communication_Routes = ?,
+                Phone_Number = ?, Industry = ?, Email = ?, Comments = ?
+            WHERE ID = ?
+        ''', (name, category, type_, priority, communication_routes,
+              phone_number, industry, email, comments, person_id))
+
+    db.commit()
+    return redirect(url_for('peopleview', id=person_id))
 
 @app.route('/upload_picture', methods=['POST'])
 def upload_picture():

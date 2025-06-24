@@ -106,7 +106,7 @@ def db_initialization(databaseexcel):
 
 
 
-database_path = 'database.xlsx'
+database_path = 'database-sample.xlsx'
 sample_database_path = 'database-sample.xlsx'
 
 if os.path.exists(database_path):

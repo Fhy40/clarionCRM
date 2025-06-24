@@ -48,10 +48,13 @@
             </h6>
             <h6 class="days-since" style="display: none;">{{ row['days_since_contacted'] }}</h6>
             <a href="/peopleview?id={{ row['ID'] }}"><button class="form-control">Open</button></a>
+            <div class="work-buttons"> 
             <form action="/delete_person" method="post" class="delete-button" onsubmit="return confirm('Delete this person?');">
                 <input type="hidden" name="id" value="{{ row['ID'] }}">     
                 <button type="submit" title="Delete" aria-label="Delete {{ row['Name'] }}">✖️</button>   
             </form>
+            <a href="/editpersonview?id={{ row['ID'] }}" title="Edit {{ row['Name'] }}" style="text-decoration: none; font-size: 16px;">🪛</a>
+            </div>
         </article>
         {% endfor %}
     </div>
