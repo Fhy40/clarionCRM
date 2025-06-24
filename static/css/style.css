@@ -9,10 +9,19 @@ div {
     font-family: 'DIN', sans-serif;
 }
 
-.page-title,
+
 .page-subtitle {
     text-align: center;
 }
+.page-title {
+    text-align: center;
+    margin: 0 10px;
+}
+.page-tagline{
+    text-align: center;
+    margin: 0 10px;
+}
+
 
 .back-button {
     width: 100%;    
@@ -53,12 +62,14 @@ div {
 
 .agent-card-mvp {
     color: #d0fff7;
-    background: linear-gradient(90deg, #1dd1a1 0%, #3b3b98 100%);
+    /*background: linear-gradient(90deg, #1dd1a1 0%, #3b3b98 100%);*/
+    background: linear-gradient(90deg, #273A73 0%,#244673 25%,#1B5359 50%,#025940 90%, #77F2CF 100%);
 }
 
 .agent-card-fam {
     color: #21428B;
-    background: linear-gradient(90deg, #efff60 0%, #ffa600 100%);
+    /*background: linear-gradient(90deg, #efff60 0%, #ffa600 100%);*/
+    background: linear-gradient(90deg, #ffee99 0%,#F2D335 25%,#F2DC6B 50%,#D9CA82 90%, #403001 100%);
 }
 
 .agent-card-base img {

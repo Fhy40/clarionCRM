@@ -13,10 +13,10 @@ function getCurrentTimestamp() {
 }
 
 function openSettingsModal() {
-    console.log("Opening modal...");
+    console.log("Attempting to open Modal");
     const modal = document.getElementById('settingsModal');
     if (!modal) {
-        console.error("Modal not found in DOM!");
+        console.error("Modal not found");
         return;
     }
     document.getElementById('maxDaysInput').value = window.maxDays || 90;

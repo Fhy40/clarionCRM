@@ -7,13 +7,13 @@
 {% block body %}
 
 <script>
-    window.maxDays = JSON.parse('{{ maxDays|default(90)|tojson }}');
-    //window.maxDays = {{ maxDays | default(90) | tojson }};
+    window.maxDays = JSON.parse('{{ maxDays|default(90)|tojson }}');    
 </script>
-
 
 <div>
 <h1 class="page-title">ClarionCRM</h1>
+<h5 class="page-tagline">by Arjun Sundram</h5>
+<br>
 <h2 class="page-subtitle" id="dateintro">It's the 14th of June 2025</h2>
 <h3 class="page-subtitle" id="numPeople">There are {{ people_count['COUNT(ID)'] }} people in the Database</h5>
     
@@ -27,7 +27,7 @@
 <div class="horizontal-scroll">
     <div class="agent-container-horizontal">
         {% for row in rows %}
-        <article class="agent-card-base agent-card{% if row['Category']|lower == 'best friend' %}-mvp{% elif row['Category']|lower == 'family' %}-fam{% endif %}" data-priority="{{ row['Priority'] }}">
+        <article class="agent-card-base agent-card{% if row['Category']|lower == 'best friend' or row['Category']|lower == 'bestest friend' %}-mvp{% elif row['Category']|lower == 'family' %}-fam{% endif %}" data-priority="{{ row['Priority'] }}">
             <h6>{{ row['Name'] }}</h6>
             <figure>
                 <img id="profileImage" src="{{ url_for('static', filename=row['Profile_Picture']) }}" alt="{{ row['Name'] }}">

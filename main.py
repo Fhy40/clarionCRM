@@ -31,7 +31,6 @@ def get_person(id):
     person = db.execute('SELECT * FROM main WHERE ID=' + str(id)).fetchall()
     return person
 
-
 @app.route('/update_person', methods=['POST'])
 def update_person():
     type_switch = request.form['type_switch']
