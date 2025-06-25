@@ -38,6 +38,7 @@ This isn't meant to be a business tool and I didn't really design it around that
 
 
 <h4>Filters: </h4>
+
 ![image](https://github.com/user-attachments/assets/bc5f1a09-d89f-4a04-8b00-15b0c040bae4)
 
 
@@ -47,10 +48,13 @@ This isn't meant to be a business tool and I didn't really design it around that
 
 
 <h4>Card View: </h4>
+
 ![image](https://github.com/user-attachments/assets/8f715331-60ae-4f4b-8b26-bc26e24bd769)
 
 <h4>Edit Card View: </h4>
+
 ![image](https://github.com/user-attachments/assets/f712b0ab-4502-4589-b55a-8b28e3268c6a)
+
 <br>
 <h2>How to Run:</h2>
 
