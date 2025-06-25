@@ -1,8 +1,10 @@
 # clarionCRM
 A simple CRM written in python flask to help manage networking opportunites but also just to reply to messages on time. Starting off small but hoping to add more features.
 
-<h2>Learning Goals</h2>
+<h2> Why? </h2>
+This isn't meant to be a business tool and I didn't really design it around that. It's goal is for the individual to be able to manage their connections better and avoid letting thing sit for too long. My overall plan is to keep things as straight forward as possible with things streamlined. This isn't the next big thing, but hopefully it makes life a little more organized. 
 
+<h2>Learning Goals</h2>
 * Writing a backend
 * Learning some simple UI tricks with CSS
 * Writing my own auth
@@ -65,4 +67,4 @@ Run your flask application with the command "flask --app main run" to run it loc
 Navigate to the webpage by going to localhost:5000 or your computers local ip address:5000
 
 
-Stick around as I update this project
+Stick around as I update this project and feel free to message me with any feedback!
