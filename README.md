@@ -5,6 +5,7 @@ A simple CRM written in python flask to help manage networking opportunites but 
 This isn't meant to be a business tool and I didn't really design it around that. It's goal is for the individual to be able to manage their connections better and avoid letting thing sit for too long. My overall plan is to keep things as straight forward as possible with things streamlined. This isn't the next big thing, but hopefully it makes life a little more organized. 
 
 <h2>Learning Goals</h2>
+
 * Writing a backend
 * Learning some simple UI tricks with CSS
 * Writing my own auth
