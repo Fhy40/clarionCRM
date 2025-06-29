@@ -1,6 +1,9 @@
 # clarionCRM
 A simple CRM written in python flask to help manage networking opportunites but also just to reply to messages on time. Starting off small but hoping to add more features.
 
+<h2> Why? </h2>
+This isn't meant to be a business tool. It's goal is for the individual to be able to manage their connections better and avoid letting things sit for too long. This isn't the next big thing, but hopefully it makes life a little more organized. 
+
 <h2>Learning Goals</h2>
 
 * Writing a backend
@@ -27,6 +30,7 @@ A simple CRM written in python flask to help manage networking opportunites but 
 * Editing Cards after creation ✅
 * More elements that glow (tastefully) ✅
 * Database Cleanups ✅
+* Events Matching 🛠️
 
 <h2>Screenshots:</h2>
 <h4>Homepage: </h4>
@@ -35,6 +39,7 @@ A simple CRM written in python flask to help manage networking opportunites but 
 
 
 <h4>Filters: </h4>
+
 ![image](https://github.com/user-attachments/assets/bc5f1a09-d89f-4a04-8b00-15b0c040bae4)
 
 
@@ -44,10 +49,13 @@ A simple CRM written in python flask to help manage networking opportunites but 
 
 
 <h4>Card View: </h4>
+
 ![image](https://github.com/user-attachments/assets/8f715331-60ae-4f4b-8b26-bc26e24bd769)
 
 <h4>Edit Card View: </h4>
+
 ![image](https://github.com/user-attachments/assets/f712b0ab-4502-4589-b55a-8b28e3268c6a)
+
 <br>
 <h2>How to Run:</h2>
 
@@ -64,5 +72,12 @@ Run your flask application with the command "flask --app main run" to run it loc
 <h4>Step 4</h4>
 Navigate to the webpage by going to localhost:5000 or your computers local ip address:5000
 
+<h2>Stack </h2>
 
-Stick around as I update this project
+* Flask
+* Javascript
+* CSS
+* HTML
+
+
+Stick around as I update this project and feel free to message me with any feedback!
