@@ -35,22 +35,22 @@ This isn't meant to be a business tool. It's goal is for the individual to be ab
 <h2>Screenshots:</h2>
 <h4>Homepage: </h4>
 
-![image](https://github.com/user-attachments/assets/348f76d0-5722-44ef-8133-6548ca5f1e10)
+![image](https://github.com/user-attachments/assets/6a68f9a6-4ac7-4802-9edf-92cfe8efa84b)
 
 
 <h4>Filters: </h4>
 
-![image](https://github.com/user-attachments/assets/bc5f1a09-d89f-4a04-8b00-15b0c040bae4)
+![image](https://github.com/user-attachments/assets/a76a8544-c2d6-424d-a3ef-f3b5fe1e6040)
 
 
 <h4>Adding New People: </h4>
 
-![image](https://github.com/user-attachments/assets/ed300cd6-3e1b-4d5f-a353-dafac46c5f30)
+![image](https://github.com/user-attachments/assets/8165e9ee-a6f7-46b1-b8ac-4b5973a3b06e)
 
 
 <h4>Card View: </h4>
 
-![image](https://github.com/user-attachments/assets/8f715331-60ae-4f4b-8b26-bc26e24bd769)
+![image](https://github.com/user-attachments/assets/b2ac12c8-5e35-4f59-8204-aa366e6b6aa8)
 
 <h4>Edit Card View: </h4>
 
