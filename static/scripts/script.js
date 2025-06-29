@@ -17,7 +17,7 @@ function checkPriority(priorityLevel, cur_maxDays) {
     if (priorityLevel >= 4) {
         cur_maxDays = cur_maxDays * 0.5
     } else if (priorityLevel <= 2) {
-        
+        /* Add some code here*/
     }
 }
 
