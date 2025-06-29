@@ -13,6 +13,14 @@ function getCurrentTimestamp() {
     return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
 }
 
+function checkPriority(priorityLevel, cur_maxDays) {
+    if (priorityLevel >= 4) {
+        cur_maxDays = cur_maxDays * 0.5
+    } else if (priorityLevel <= 2) {
+        
+    }
+}
+
 function openSettingsModal() {
     console.log("Attempting to open Modal");
     const modal = document.getElementById('settingsModal');
@@ -185,12 +193,15 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             if (newGoldLabel) {
-                updates.push({ name: 'goldLabel', value: newGoldLabel });
+                updates.push({ name: 'gold', value: newGoldLabel });
             }
 
             if (newDiamondLabel) {
-                updates.push({ name: 'diamondLabel', value: newDiamondLabel });
+                updates.push({ name: 'diamond', value: newDiamondLabel });
             }
+            console.log("Now printing updates array in updateSettings() function")
+            console.log(updates)
+
             // Parallel processing ftw
             Promise.all(
                 updates.map(setting =>
@@ -224,15 +235,19 @@ document.addEventListener('DOMContentLoaded', () => {
     // Update Relation Level Bar for all cards
     document.querySelectorAll('.agent-card-base').forEach(card => {
         const daysElement = card.querySelector('.days-since');
+        const priorityElement = card.querySelector('.priority_level');
         const fillBar = card.querySelector('.bar .fill');
         if (daysElement && fillBar) {
-            const days = parseInt(daysElement.textContent.trim());
-            if (!isNaN(days)) {
-                let widthPercent = Math.max(0, 100 - (days / window.maxDays) * 100);
+            const daysSince = parseInt(daysElement.textContent.trim());
+            const priority_level = parseInt(priorityElement.textContent.trim());
+            if (!isNaN(daysSince)) {
+                let widthPercent = Math.max(0, 100 - (daysSince / window.maxDays) * 100);
                 fillBar.style.width = `${widthPercent}%`;
-                if (days >= (window.maxDays / 3)) {
+                /*Make it color if it's been more than a third of maxDays since you last engaged*/ 
+                if (daysSince >= (window.maxDays / 3)) {
                     fillBar.style.backgroundColor = '#ff4d4d';
-                } else if (days >= (window.maxDays / 6)) {
+                /*Make it color if it's been more than a 6th of maxDays since you last engaged*/ 
+                } else if (daysSince >= (window.maxDays / 6)) {
                     fillBar.style.backgroundColor = '#ffa500';
                 }
             }

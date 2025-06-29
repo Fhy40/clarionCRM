@@ -8,7 +8,6 @@ from werkzeug.security import generate_password_hash
 default_username  = "admin"
 default_password  = "root"
 
-
 input_username = input(f"Enter admin username (default: {default_username}): ").strip()
 input_password = input(f"Enter admin password (default: {default_password}): ").strip()
 
@@ -41,6 +40,7 @@ def db_initialization(databaseexcel):
             Comments TEXT
         )
     ''')
+    # Create adminuser table
     cursor.execute('DROP TABLE IF EXISTS adminuser')
     cursor.execute('''
         CREATE TABLE adminuser (
@@ -58,6 +58,7 @@ def db_initialization(databaseexcel):
             Value TEXT
         )
     ''')
+    # Create engagements table
     cursor.execute('DROP TABLE IF EXISTS engagements')
     cursor.execute('''
         CREATE TABLE engagements (
@@ -67,7 +68,7 @@ def db_initialization(databaseexcel):
         Timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
         FOREIGN KEY (Person_ID) REFERENCES main(ID)
     );
-    ''')
+    ''')    
 
     # Insert default setting row for maxDays, and tagging for agent-cards
     cursor.execute('''

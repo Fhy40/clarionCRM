@@ -15,14 +15,14 @@
             <input type="text" name="name" required><br><br>
 
             <label for="category">Category:</label><br>
-            <select name="category" required>
-                <option value="">-- Select Category --</option>
-                <option value="Friend">Friend</option>
-                <option value="Best Friend">Best Friend</option>
-                <option value="Family">Family</option>
-                <option value="Colleague">Colleague</option>
-                <option value="Other">Other</option>
-            </select><br><br>
+            <input list="category-options" name="category" id="categoryInput" required>
+            <datalist id="category-options">
+                <option value="Friend">
+                <option value="Best Friend">
+                <option value="Family">
+                <option value="Colleague">
+                <option value="Other">
+            </datalist><br><br>
 
             <label for="type">Type:</label><br>
             <select name="type" id="type" required>

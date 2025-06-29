@@ -9,7 +9,7 @@
 <h1 class="page-title">Update Contact Details</h1>
 </div>
 <div class="form-container">
-    <div class="agent-card-base agent-card{% if person['Category']|lower == 'best friend' or person['Category']|lower == 'bestest friend' %}-mvp{% elif person['Category']|lower == 'family' %}-fam{% endif %}" style="max-width: 500px; width: 100%;">
+    <div class="agent-card-base agent-card{% if person['Category']|lower == diamond_inde%}-mvp{% elif person['Category']|lower == gold_index %}-fam{% endif %}" style="max-width: 500px; width: 100%;">
         <h6>Name: {{ person['Name'] }}</h6>
         <figure >        
         <img id="profileImage" class="glow-hover" onclick="document.getElementById('dpUpload').click()" style="cursor: pointer;" src="{{ url_for('static', filename=person['Profile_Picture']) }}" alt="{{ person['Name'] }}">

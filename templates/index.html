@@ -27,7 +27,7 @@
 <div class="horizontal-scroll">
     <div class="agent-container-horizontal">
         {% for row in rows %}
-        <article class="agent-card-base agent-card{% if row['Category']|lower == 'best friend' or row['Category']|lower == 'bestest friend' %}-mvp{% elif row['Category']|lower == 'family' %}-fam{% endif %}" data-priority="{{ row['Priority'] }}">
+        <article class="agent-card-base agent-card{% if row['Category'] == diamond_index%}-mvp{% elif row['Category'] == gold_index %}-fam{% endif %}" data-priority="{{ row['Priority'] }}">
             <h6>{{ row['Name'] }}</h6>
             <figure>
                 <img id="profileImage" src="{{ url_for('static', filename=row['Profile_Picture']) }}" alt="{{ row['Name'] }}">
@@ -47,6 +47,7 @@
                 {% endfor %}
             </h6>
             <h6 class="days-since" style="display: none;">{{ row['days_since_contacted'] }}</h6>
+            <h6 class="priority_level" style="display: none;">{{ row['Priority'] }}</h6>
             <a href="/peopleview?id={{ row['ID'] }}"><button class="form-control">Open</button></a>
             <div class="work-buttons"> 
             <form action="/delete_person" method="post" class="delete-button" onsubmit="return confirm('Delete this person?');">
@@ -61,15 +62,16 @@
 </div>
 <br>
 <div class="filter-div">
-<button class="filter-buttons" onclick="filterMVP(this)"> MVP </button>
-<button class="filter-buttons" onclick="filterFamily(this)"> Family </button>
+<button class="filter-buttons" onclick="filterMVP(this)"> Diamond </button>
+<button class="filter-buttons" onclick="filterFamily(this)"> Gold </button>
 <button class="filter-buttons" onclick="filterLowHealth(this)"> Low HP </button>
 <button class="filter-buttons" onclick="sortHealth(this)"> Sort HP </button>
-<button class="filter-buttons" onclick="unfilterAll()"> Clear </button>
+<button id="clear-button" class="filter-buttons" onclick="unfilterAll()"> Clear </button>
+<p id="filter-buttons-tooltip">You can change the value of the Diamond and Gold filters in your settings. These apply to the contact card category</p>
 </div>
 <div>
 <br>
-<!--<p id="numberofCards"> Currently showing X people</p>-->
+
 </div>
 <br>
 <div id="settingsModal" class="modal">

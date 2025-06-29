@@ -34,6 +34,8 @@ def get_person(id):
 @app.route('/update_person', methods=['POST'])
 def update_person():
     type_switch = request.form['type_switch']
+    
+
     if(type_switch == "online"):
         person_id = request.form['id']
         last_contacted = request.form['last_contacted']
@@ -176,9 +178,11 @@ def home():
     for row in rows:
         row_dict = dict(row)
         last_contacted_str = row_dict.get('Last_Contacted', '')
-
+        last_met_str = row_dict.get('Last_Meeting', '')
         try:
             last_contacted_date = datetime.strptime(last_contacted_str[:10], '%Y-%m-%d')
+            last_met_date = datetime.strptime(last_met_str[:10], '%Y-%m-%d')
+            last_contacted_date = max(last_contacted_date, last_met_date)
             delta_days = (today - last_contacted_date).days
         except Exception as e:
             print(f"Error parsing date for ID {row_dict.get('ID')}: {e}")
@@ -195,13 +199,18 @@ def home():
 def peopleview():
     if not session.get('logged_in'):
         return redirect(url_for('login'))
-    
+    db = get_db()
+    gold_row = db.execute("SELECT Value FROM settings WHERE Name = 'gold'").fetchone()
+    gold_row = gold_row['Value']
+    diamond_row = db.execute("SELECT Value FROM settings WHERE Name = 'diamond'").fetchone()
+    diamond_row = diamond_row['Value']
+
     person_id = request.args.get('id')
     if not person_id:
         return "No ID provided", 400
     person = get_person(person_id)
     print(dict(person[0]))
-    return render_template('agent_card.html',person=dict(person[0]))
+    return render_template('agent_card.html',person=dict(person[0]), gold_index = gold_row, diamond_index = diamond_row)
 
 @app.route('/editpersonview')
 def editpersonview():
@@ -299,7 +308,7 @@ def upload_picture():
 def update_setting():
     if not session.get('logged_in'):
         return redirect(url_for('login'))
-    
+
     data = request.get_json()
     name = data.get('name')
     value = data.get('value')
@@ -314,6 +323,15 @@ def update_setting():
     )
     db.commit()
     return jsonify({'success': True, 'message': 'Setting updated'})
+
+@app.route('/arthas ', methods=['POST'])
+def arthas_betray():
+    if not session.get('logged_in'):
+        return redirect(url_for('login'))
+    if request.method == 'POST':
+        print("Succeeding you father")
+    
+    
 
 
 if __name__ == '__main__':

@@ -18,12 +18,12 @@
             <input type="text" name="name" value="{{ person['Name'] }}" required><br><br>
 
             <label for="category">Category:</label><br>
-            <select name="category" required>
-                <option value="">-- Select Category --</option>
+            <input list="category-options" name="category" id="categoryInput" value="{{ person['Category'] }}" required>
+            <datalist id="category-options">
                 {% for option in ['Friend', 'Best Friend', 'Family', 'Colleague', 'Other'] %}
-                    <option value="{{ option }}" {% if person['Category'] == option %}selected{% endif %}>{{ option }}</option>
+                    <option value="{{ option }}">
                 {% endfor %}
-            </select><br><br>
+            </datalist><br><br>
 
             <label for="type">Type:</label><br>
             <select name="type" id="type" required>
